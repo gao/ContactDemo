@@ -8,6 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="css/content.css" />
 		<link rel="stylesheet" type="text/css" href="css/dialog.css" />
 
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<script type="text/javascript" src="js/gcontact.js"></script>
+
 		<script type="text/javascript" src="js/jquery.js" ></script>
 		<script type="text/javascript" src="js/jquery.tmpl.js" ></script>		
 		<script type="text/javascript" src="js/snow.core.js" ></script>
@@ -17,8 +20,12 @@
     </head>
     <body>
     	<div>
-
+			<img src="image.jpg" style="position:absolute; top: -1000px;">
 	        <h2>snow.ui contacts demo</h2>
+
+			<br>Note: In order to execute the following interactive JavaScript samples, 
+			<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you must authenticate using your Google account credentials.
+			<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="action" onclick="logMeIn()">Login</button>
 
 			<div id="container">
 				<div id="groupList"></div> 	
