@@ -1,0 +1,92 @@
+<!-- Simple contactsComponent -->
+<script type="text/javascript">
+
+	snow.ui.registerComponent("contact",{
+		
+		ctx: {
+			  parent: "#contactList",
+			  emptyParent: true
+		     },
+		
+		build: function(ctx){
+			var contacts = snow.dm.find("contact",{});
+
+			if(ctx.data && ctx.data.groupId){
+				var groupContacts = snow.dm.find("groupcontact",{});
+				var a = [];
+				for(var i = 0; i<groupContacts.length;i++){
+					if(groupContacts[i].groupId == ctx.data.groupId){
+						a.push(groupContacts[i]);
+					}
+				}
+				var b =[];
+				for(var i=0; i<a.length;i++){
+					for(var j = 0; j<contacts.length;j++){
+						if(a[i].contactId == contacts[j].id){
+							b.push(contacts[j]);
+						}
+					}
+				}
+				contacts = b;
+			}
+			var $cont = null;
+			$cont = $("#contactListTmpl").tmpl({"contacts":contacts});
+		
+			return $cont;
+		}
+	});
+
+	
+	function deleteContact(id){
+		snow.dm.remove("contact",id);
+		var groupContacts = snow.dm.find("groupcontact",{});
+		for(var i=0;i<groupContacts.length;i++){
+			var o = groupContacts[i];
+			if(id == o.contactId){
+				snow.dm.remove("groupcontact",o.id);
+			}
+		}
+		snow.ui.display("contact");
+	}
+
+	function deleteGroupContact(id){
+		snow.dm.remove("groupcontact",id);
+		snow.ui.display("contact");
+	}
+</script>
+<!--  /Simple contactsComponent -->
+
+
+
+<script id="contactListTmpl" type="text/html">
+	<div class="panel">
+		<div class="panel-header">
+			<button class="action"  onclick="snow.ui.display('dialogContact',{})">Create Contact</button>
+			<h1>Contacts</h1>
+		</div>
+
+		<div class="panel-content">
+		<ul>
+		{{each contacts}}
+			<li data-obj_type="contact" data-obj.id="${id}" style="height:35px;">
+				<div> 
+					<span class="name">Name: <a class="edit" onclick="snow.ui.display('dialogContact',{data:{id:'${id}'}})" >${name}</a></span>
+					<span>Address: ${address}</span>
+					<span>Phone: ${phone}</span>
+				</div> 
+				<div class="group"> 
+					Groups: 
+					{{each groups}}
+						<span class="edit groupValue" onclick="deleteGroupContact('${groupContactId}')">${name}&nbsp;&nbsp;x</span>
+					{{/each groups}} 
+					<span class="edit" onclick="snow.ui.display('groupcontact',{data:{contactId:'${id}'}})">(Add Groups)</span>
+				</div>
+				<div class="del" onclick="deleteContact('${id}')" >Del</div>
+				<div class="del"  onclick="snow.ui.display('dialogContact',{data:{id:'${id}'}})">Edit&nbsp;</div>
+			</li>	
+		{{/each contacts}}
+		</ul>
+		</div>
+	</div>
+</script>
+

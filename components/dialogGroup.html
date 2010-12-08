@@ -1,0 +1,62 @@
+
+<script type="text/javascript">
+	
+	
+	snow.ui.registerComponent("dialogGroup",{
+		ctx: {
+			parent: "#container"
+		},
+		build: function(ctx){
+			var id = "";
+			if(ctx.data && ctx.data.id){
+				id = ctx.data.id;
+			}
+			var group = snow.dm.get("group",id);
+			var $e = $("#groupFormTmpl").tmpl(group);
+			return $e;
+		},
+		postDisplay:function(ctx){
+			$(".dialog").delegate("button","click",function(){
+			   $(this).sComponent$element().sCall("close");		
+			});
+		},
+		methods: {
+			close: function(){
+				var $element = this;
+				$element.remove();
+			}
+		}
+	});
+
+	function updateGroup(){
+		snow.dm.save("group",{id:$("#groupId").val(),name: $("#groupName").val()});
+		snow.ui.display("group");
+	}
+
+</script>
+
+<!-- templates-->
+<script id="groupFormTmpl" type="text/html">
+	<div class="dialog">
+		<div class="dialog-header">
+			<button class="ok">X</button>
+			<h1 class="appText">Update Group</h1>
+		</div>
+		<div class="dialog-content">
+			<form id="groupForm">	
+				<input id="groupId" name="id" type="hidden" value="${ id }" />
+				<div class="dialogItem">
+					<div class="dialogItem-label">Name:</div>
+					<div class="dialogItem-value">
+						<input id="groupName" name="name" type="text" value="${name}" />
+					</div>
+				</div>
+				<div class="action">
+					<button onclick="updateGroup()" >save</button>
+					<button onclick="snow.ui.display('group')">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</script>
+<!-- /templates -->

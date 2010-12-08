@@ -1,0 +1,13 @@
+{
+  "name": "ContactsApp",
+  "description": "Contacts",
+  "version": "0.1",
+  "app": {
+    "launch": {
+      "local_path": "main.html"
+    }
+  },
+  "permissions": [
+    "unlimitedStorage"
+  ]
+}
