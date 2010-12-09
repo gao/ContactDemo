@@ -1,61 +1,98 @@
-			google.load("gdata", "2.x");
+var Picker = {
+	AUTH_SCOPE: 'http://www.google.com/m8/feeds/',
+	CONTACTS_URL: 'http://www.google.com/m8/feeds/contacts/default/full',
 
-			google.setOnLoadCallback(initFunc);
+	serviceName: 0,
+	contactsService: 0,
+	container: 0,
 
-			function initFunc() {  
-				setupContactsService(); 
+	login: function() {
+		if (this.serviceName != 0 && typeof(this.serviceName) != 'undefined') {
+			// Obtain a login token
+			google.accounts.user.login(this.AUTH_SCOPE);
+			// Create a new persistant service object
+			this.contactsService = new google.gdata.contacts.ContactsService(this.serviceName);
+		} else {
+			this.error('Service name undefined, call setServiceName()');
+		}
+	},
+  
+    logout: function() {
+		google.accounts.user.logout();
+		this.container.html("");
+		this.container.append('<h3>Please Sign In To' +
+			' Use This Feature</h3><input type=\'button\'' + 
+			' value=\'Sign In\' onclick=\'Picker.login()\' /></p>');
+    },
+  
+	error: function(errorMessage) {
+		if (this.errorCallback != 0 && typeof(this.errorCallback) 
+			!= 'undefined') {
+			this.errorCallback(errorMessage);
+		} else {
+			alert(errorMessage);
+		}
+	},
+  
+	setServiceName: function(serviceName) {
+		this.serviceName = serviceName;
+	},
+  
+
+	setErrorCallback: function(callback) {
+		this.errorCallback = callback;
+    },
+
+	processContactFeed: function(feedRoot) {
+		var entries = feedRoot.feed.entry;
+		var b =[];
+		for (var i = 0; i < entries.length; i++) {
+			var entry = entries[i];
+			var name = 0;
+			if (entry.getTitle() && entry.getTitle().getText()) {
+				name = entry.getTitle().getText();
+			} else if (entry.getEmailAddresses()) {
+				name = entry.getEmailAddresses()[0].getAddress();
+			} else {
+				name = 'Untitled Contact';
 			}
+			b.push(name);
+		}
 
-			var contactsService;  
+		alert("your contacts are :"+b);
+	},
 
-			function setupContactsService() {  
-				var contactsService = new google.gdata.contacts.ContactsService('GoogleInc-jsguide-1.0');
-			} 
-			
-			function logMeIn() {  
-				var scope = 'https://www.google.com/m8/feeds'; 
-				var check = google.accounts.user.checkLogin(scope);
-				if (check) {
-					alert("retrieve Contacts data");
-					getMyContacts();
-				}else{
-					alert("Jump to Google sign in");
-					google.accounts.user.login(scope);
-				}
-			}  
-
-			function logMeOut() {   
-				var scope = 'https://www.google.com/m8/feeds'; 
-				var check = google.accounts.user.checkLogin(scope);
-				if (check) {
-					google.accounts.user.logout(); 
-				}
-			}
+	populateContacts: function() {
+		var query = new google.gdata.contacts.ContactQuery(this.CONTACTS_URL);
+		query.setParam('max-results', 1000);
+    
+		this.contactsService.getContactFeed(query, this.processContactFeed, this.error);
+	},
 
 
-			function getMyContacts() { 
-				var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full';
-				var query = new google.gdata.contacts.ContactQuery(feedUri);
-				query.setMaxResults(50);
+	render: function(divId) {
+		this.container = $("#"+divId);
+        
+		// Make sure that the client library is initialized
+		google.gdata.client.init(this.error);
 
-				// callback method to be invoked when getContactFeed() returns data
-				var callback = function(result) {
-					var entries = result.feed.entry;
-					for (var i = 0; i < entries.length; i++) {
-						var contactEntry = entries[i];
-						var emailAddresses = contactEntry.getEmailAddresses();
-						for (var j = 0; j < emailAddresses.length; j++) {
-							var emailAddress = emailAddresses[j].getAddress();
-							alert('email = ' + emailAddress);
-						}    
-					}
-				}
+		if (google.accounts.user.checkLogin(this.AUTH_SCOPE)) {
+			this.login();
 
-				// Error handler
-				var handleError = function(e) {
-					alert("There was an error!");
-					alert(e.cause ? e.cause.statusText : e.message);
-				}
+			this.container.html("");
+			this.container.append(
+				'<h3>Click to logout</h3>\
+				<input type=\'button\' value=\'Logout\'\
+				onclick=\'Picker.logout()\' /></p>');
 
-				contactsService.getContactFeed(query, callback, handleError);
-			}
+			var groups = this.populateContacts();
+		} else {
+			// Display a login button
+			this.container.html("");
+			this.container.append(
+				'<h3>Please Sign In To Use This Feature</h3>\
+				<input type=\'button\' value=\'Sign In\'\
+				onclick=\'Picker.login()\' /></p>');
+		}
+	}
+}

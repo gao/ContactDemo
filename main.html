@@ -10,6 +10,16 @@
 
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="js/gcontact.js"></script>
+		<script type="text/javascript">
+			google.load("gdata", "2.x");
+
+			function init() {
+				Picker.setServiceName('Google-PickerSample-1-0');
+				Picker.render('showLoginOrLogout');
+			}
+
+			google.setOnLoadCallback(init);
+		</script>
 
 		<script type="text/javascript" src="js/jquery.js" ></script>
 		<script type="text/javascript" src="js/jquery.tmpl.js" ></script>		
@@ -23,9 +33,7 @@
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
 	        <h2>snow.ui contacts demo</h2>
 
-			<br>Note: In order to execute the following interactive JavaScript samples, 
-			<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you must authenticate using your Google account credentials.
-			<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="action" onclick="logMeIn()">Login</button>
+			<div id="showLoginOrLogout"></div>
 
 			<div id="container">
 				<div id="groupList"></div> 	
