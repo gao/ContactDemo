@@ -20,15 +20,12 @@ var Picker = {
   
     logout: function() {
 		google.accounts.user.logout();
-		this.container.html("");
-		this.container.append('<h3>Please Sign In To' +
-			' Use This Feature</h3><input type=\'button\'' + 
-			' value=\'Sign In\' onclick=\'Picker.login()\' /></p>');
+		this.container.find("#loginDiv").show();
+		this.container.find("#logoutDiv").show();
     },
   
 	error: function(errorMessage) {
-		if (this.errorCallback != 0 && typeof(this.errorCallback) 
-			!= 'undefined') {
+		if (this.errorCallback != 0 && typeof(this.errorCallback) != 'undefined') {
 			this.errorCallback(errorMessage);
 		} else {
 			alert(errorMessage);
@@ -119,11 +116,8 @@ var Picker = {
 		
 		if (google.accounts.user.checkLogin(this.AUTH_SCOPE)) {
 			this.login();
-			this.container.html("");
-			this.container.append(
-				'<h3>Click to logout</h3>\
-				<input type=\'button\' value=\'Logout\'\
-				onclick=\'Picker.logout()\' /></p>');
+			this.container.find("#loginDiv").hide();
+			this.container.find("#logoutDiv").show();
 
 			//loading the data
 			var groups = this.populateGroups();
@@ -131,11 +125,7 @@ var Picker = {
 
 		} else {
 			// Display a login button
-			this.container.html("");
-			this.container.append(
-				'<h3>Please Sign In To Use This Feature</h3>\
-				<input type=\'button\' value=\'Sign In\'\
-				onclick=\'Picker.login()\' /></p>');
+			this.container.find("#loginDiv").show();
 		}
 	}
 }
