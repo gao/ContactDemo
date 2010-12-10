@@ -1,6 +1,6 @@
 <!-- contacts Dao -->		
 	snow.dm.registerDao("contact",(function(){
-		
+
 		var contactStore = getContacts();
 		
 		var contactDao = {
@@ -36,10 +36,11 @@
 			},
 
 			find: function(objectType,opts){
+				//alert("contactStore.length = "+getContacts().length);
 				var a = [];
 				var groupContacts = getGroupContacts();
 				var groups = getGroups();
-
+				
 				for (var i = 0; i < contactStore.length; i++){
 					var t = contactStore[i];
 					var contactGroups = [];

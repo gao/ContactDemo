@@ -12,20 +12,6 @@ h2{
 	border-bottom: solid 1px #777777;
 }
 
-#groupList{
-	left: 20px;
-	width: 250px;
-	position: absolute;
-}
-#contactList{
-	width: 650px;
-	position: absolute;
-    right: 0;
-    left: 300px;
-    overflow: auto;
-}
-
-
 li{
 	list-style: none;
 	margin-bottom: 3px;
