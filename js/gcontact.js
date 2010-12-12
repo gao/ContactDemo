@@ -21,7 +21,7 @@ var Picker = {
     logout: function() {
 		google.accounts.user.logout();
 		this.container.find("#loginDiv").show();
-		this.container.find("#logoutDiv").show();
+		this.container.find("#logoutDiv").hide();
     },
   
 	error: function(errorMessage) {
