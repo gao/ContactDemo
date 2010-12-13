@@ -8,60 +8,34 @@
 		<link rel="stylesheet" type="text/css" href="css/content.css" />
 		<link rel="stylesheet" type="text/css" href="css/dialog.css" />
 
-		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript" src="js/gcontact.js"></script>
-		<script type="text/javascript">
-			google.load("gdata", "2.x");
-
-			function init() {
-				//alert("init");
-				Picker.setServiceName('Google-PickerSample-1-0');
-				Picker.render('showLoginOrLogout');
-			}
-
-			google.setOnLoadCallback(init);
-		</script>
-
 		<script type="text/javascript" src="js/jquery.js" ></script>
 		<script type="text/javascript" src="js/jquery.tmpl.js" ></script>		
 		<script type="text/javascript" src="js/snow.core.js" ></script>
 		<script type="text/javascript" src="js/snow.dm.js" ></script>
 		<script type="text/javascript" src="js/contact.dao.js" ></script>
 
-
     </head>
     <body>
     	<div>
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
 	        <h2>snow.ui contacts demo</h2>
-
-
-			<div id="showLoginOrLogout">
-				<div id="loginDiv" style="display:none">
-					<h3>Please Sign In To Use This Feature</h3>
-					<!--
-					UserName:<input type="text" id="username" name="username" value="" />
-					Password:<input type="text" id="password" name="password" value="" />
-					-->
-					<button class="action" onclick='Picker.login()'>Sign In</button></p>
-				</div>
-
-				<div id="logoutDiv" style="display:none">
-					<h3>Click to logout</h3>
-					<button class="action" onclick="Picker.logout()">Logout</></p>
-				</div>
-			</div>
+			<button onclick="logout();">Click here to clear your OAuth token</button>
 
 			<div id="container">
 				<div id="groupList"></div> 	
 				<div id="contactList"></div> 	
 			</div>	
 		</div> 
+
+		<script type="text/javascript">
+			function logout() {
+				chrome.extension.getBackgroundPage().logout();
+				window.close();
+			};
+		</script>
 		<script>
 			$(document).ready(function(){
-
 				snow.ui.display('group');
-
 				snow.ui.display('contact');
 			});
 		</script>
