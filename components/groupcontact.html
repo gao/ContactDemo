@@ -2,12 +2,13 @@
 <script type="text/javascript">
 	
 	
-snow.ui.registerComponent("groupcontact",{
-		ctx: {
+snow.ui.registerComponent("groupcontact",
+		{
 			parent: "#container"
-			},
-		build: function(ctx){
-			var contactId = ctx.data.contactId;
+		},
+		{
+		build: function(data){
+			var contactId = data.contactId;
 			var contact = snow.dm.get("contact",contactId);
 			var groups = snow.dm.find("group",{});
 			contact.groupsList = groups;
@@ -15,17 +16,16 @@ snow.ui.registerComponent("groupcontact",{
 			$groupContactForm = $("#groupContactFormTmpl").tmpl(contact);
 			return $groupContactForm;
 		},
-		postDisplay:function(ctx){
+		postDisplay:function(data){
+			var component = this;
 			$(".dialog").delegate("button","click",function(){
-			   $(this).sComponent$element().sCall("close");		
+			   component.close();	
 			});
 		},
-		methods: {
-			close: function(){
-				var $element = this;
-				$element.remove();
-			}
-		}
+		close: function(){
+            this.$element.remove();
+        }
+		
 	});
 
 function updateGroupContact(){

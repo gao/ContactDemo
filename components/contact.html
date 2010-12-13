@@ -1,21 +1,20 @@
 <!-- Simple contactsComponent -->
 <script type="text/javascript">
 
-	snow.ui.registerComponent("contact",{
-		
-		ctx: {
-			  parent: "#contactList",
-			  emptyParent: true
-		     },
-		
-		build: function(ctx){
+	snow.ui.registerComponent("contact",
+		{
+			parent: "#contactList",
+			emptyParent: true
+		},
+		{
+		build: function(data){
 			var contacts = snow.dm.find("contact",{});
 
-			if(ctx.data && ctx.data.groupId){
+			if(data && data.groupId){
 				var groupContacts = snow.dm.find("groupcontact",{});
 				var a = [];
 				for(var i = 0; i<groupContacts.length;i++){
-					if(groupContacts[i].groupId == ctx.data.groupId){
+					if(groupContacts[i].groupId == data.groupId){
 						a.push(groupContacts[i]);
 					}
 				}
@@ -70,7 +69,7 @@
 		{{each contacts}}
 			<li data-obj_type="contact" data-obj.id="${id}" style="height:35px;">
 				<div> 
-					<span class="name">Name: <a class="edit" onclick="snow.ui.display('dialogContact',{data:{id:'${id}'}})" >${name}</a></span>
+					<span class="name">Name: <a class="edit" onclick="snow.ui.display('dialogContact',{id:'${id}'})" >${name}</a></span>
 					<span>Address: ${address}</span>
 					<span>Phone: ${phone}</span>
 				</div> 
@@ -79,10 +78,10 @@
 					{{each groups}}
 						<span class="edit groupValue" onclick="deleteGroupContact('${groupContactId}')">${name}&nbsp;&nbsp;x</span>
 					{{/each groups}} 
-					<span class="edit" onclick="snow.ui.display('groupcontact',{data:{contactId:'${id}'}})">(Add Groups)</span>
+					<span class="edit" onclick="snow.ui.display('groupcontact',{contactId:'${id}'})">(Add Groups)</span>
 				</div>
 				<div class="del" onclick="deleteContact('${id}')" >Del</div>
-				<div class="del"  onclick="snow.ui.display('dialogContact',{data:{id:'${id}'}})">Edit&nbsp;</div>
+				<div class="del"  onclick="snow.ui.display('dialogContact',{id:'${id}'})">Edit&nbsp;</div>
 			</li>	
 		{{/each contacts}}
 		</ul>

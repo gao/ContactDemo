@@ -2,30 +2,29 @@
 <script type="text/javascript">
 	
 	
-	snow.ui.registerComponent("dialogContact",{
-		ctx: {
+	snow.ui.registerComponent("dialogContact",
+		{
 			parent: "#container"
-			},
-		build: function(ctx){
+		},
+		{
+		build: function(data){
 			var id = null;
-			if(ctx.data && ctx.data.id){
-				id = ctx.data.id;
+			if(data && data.id){
+				id = data.id;
 			}
 			var contact = snow.dm.get("contact",id);
 			var $e = $("#contactFormTmpl").tmpl(contact);
 			return $e;
 		},
-		postDisplay:function(ctx){
+		postDisplay:function(data){
+			var component = this;
 			$(".dialog").delegate("button","click",function(){
-			   $(this).sComponent$element().sCall("close");		
+			   component.close();	
 			});
 		},
-		methods: {
-			close: function(){
-				var $element = this;
-				$element.remove();
-			}
-		}
+		close: function(){
+            this.$element.remove();
+        }
 	});
 
 	function updateContact(){

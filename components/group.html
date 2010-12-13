@@ -1,14 +1,13 @@
 <!-- Simple groupsComponent -->
 <script type="text/javascript">
 
-	snow.ui.registerComponent("group",{
-		
-		ctx: {
-			  parent: "#groupList",
-			  emptyParent: true
-		     },
-		
-		build: function(ctx){
+	snow.ui.registerComponent("group",
+		{
+			parent: "#groupList",
+			emptyParent: true
+		},
+		{
+		build: function(data){
 			var groups = snow.dm.find("group",{});
 			var $group = null;
 			$group = $("#groupListTmpl").tmpl({"groups":groups});
@@ -51,9 +50,9 @@
 				</li>
 				{{each groups}}
 					<li data-obj_type="group" data-obj.id="${id}">
-						<span class="name"><a class="edit" onclick="snow.ui.display('contact',{data:{groupId:'${id}'}})">${name}</a></span>
+						<span class="name"><a class="edit" onclick="snow.ui.display('contact',{groupId:'${id}'})">${name}</a></span>
 						<span class="del" onclick="deleteGroup('${id}')" >Del</span>
-						<span class="del"  onclick="snow.ui.display('dialogGroup',{data:{id:'${id}'}})" >Edit&nbsp;</span>
+						<span class="del"  onclick="snow.ui.display('dialogGroup',{id:'${id}'})" >Edit&nbsp;</span>
 					</li>	
 				{{/each groups}}
 			</ul>

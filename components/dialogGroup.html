@@ -2,30 +2,29 @@
 <script type="text/javascript">
 	
 	
-	snow.ui.registerComponent("dialogGroup",{
-		ctx: {
+	snow.ui.registerComponent("dialogGroup",
+		{
 			parent: "#container"
 		},
-		build: function(ctx){
+		{
+		build: function(data){
 			var id = "";
-			if(ctx.data && ctx.data.id){
-				id = ctx.data.id;
+			if(data && data.id){
+				id = data.id;
 			}
 			var group = snow.dm.get("group",id);
 			var $e = $("#groupFormTmpl").tmpl(group);
 			return $e;
 		},
-		postDisplay:function(ctx){
+		postDisplay:function(data){
+			var component = this;
 			$(".dialog").delegate("button","click",function(){
-			   $(this).sComponent$element().sCall("close");		
+			   component.close();	
 			});
 		},
-		methods: {
-			close: function(){
-				var $element = this;
-				$element.remove();
-			}
-		}
+		close: function(){
+            this.$element.remove();
+        }
 	});
 
 	function updateGroup(){
