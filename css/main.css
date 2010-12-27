@@ -32,3 +32,18 @@ a:active{ text-decoration:blink}
 a:hover{ text-decoration:underline;color: red;cursor:pointer} 
 a:visited{ text-decoration: none;}
 /* -- /main --*/
+
+.div-lblVal{
+    margin: 10px 0 10px 0;
+}
+
+.div-lbl{
+    float: left;
+    width: 110px;
+    display: block;
+}
+
+.div-val{
+    margin: 0 0 0 110px;
+    display: block;
+}

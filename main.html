@@ -12,14 +12,32 @@
 		<script type="text/javascript" src="js/jquery.tmpl.js" ></script>		
 		<script type="text/javascript" src="js/snow.core.js" ></script>
 		<script type="text/javascript" src="js/snow.dm.js" ></script>
-		<script type="text/javascript" src="js/contact.dao.js" ></script>
+		<script type="text/javascript" src="js/MockContactDao.js" ></script>
+		<script type="text/javascript" src="js/MockGroupDao.js" ></script>
+		<script type="text/javascript" src="js/MockGroupContactDao.js" ></script>
+		<script type="text/javascript" src="js/MockDatas.js" ></script>
 
     </head>
     <body>
     	<div>
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
 	        <h2>snow.ui contacts demo</h2>
-			<button onclick="logout();">Click here to clear your OAuth token</button>
+			
+			<div class="div-lblVal">
+				<div class="div-lbl">Data Type:</div>
+				<div class="div-val">
+					<select id="dataType" name="dataType">
+						<option value="-1">--Select Data type--</option>
+						<option value="googleData">Google Data</option>
+						<option value="mockData">Mock Data</option>
+					</select>
+				</div>
+			</div>
+			
+			<div id="logout" class="logout" style="display:none;">
+				<button onclick="logout();">Click here to clear your OAuth token</button>
+			</div>
+			<button onclick="window.location.reload();">Refresh</button>
 
 			<div id="container">
 				<div id="groupList"></div> 	
@@ -35,8 +53,37 @@
 		</script>
 		<script>
 			$(document).ready(function(){
+				$("#dataType").change(function(){
+					var $this = $(this);
+					var value = $this.attr("value");
+					
+					//first clear the local storage
+					localStorage.removeItem("groups");
+					localStorage.removeItem("contacts");
+					localStorage.removeItem("groupContacts");
+					
+					if(value == "mockData"){
+						localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
+						localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
+					}else if(value == "googleData"){
+						var hasToken = chrome.extension.getBackgroundPage().oauth.hasToken();
+						if(hasToken){
+							//$("#logout").show();
+							chrome.extension.getBackgroundPage().getData();
+							//alert(localStorage.getItem("contacts"));
+						}else{
+							chrome.extension.getBackgroundPage().getContacts();
+						}
+					}
+					
+					window.location.reload();
+					snow.ui.display('group');
+					snow.ui.display('contact');				
+				});
+				
 				snow.ui.display('group');
 				snow.ui.display('contact');
+
 			});
 		</script>
     </body>

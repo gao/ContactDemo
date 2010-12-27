@@ -5,9 +5,11 @@
   "icons": { "48": "img/icon-48.png",
             "128": "img/icon-128.png" },
   "background_page": "background.html",
-  "browser_action": {
-    "default_title": "",
-    "default_icon": "img/icon-19-off.png"
+  
+  "app": {
+    "launch": {
+      "local_path": "main.html"
+    }
   },
   "permissions": [
     "unlimitedStorage",

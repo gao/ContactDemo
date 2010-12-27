@@ -53,7 +53,6 @@
 		  localStorage.contacts = JSON.stringify(contacts);
         }
 
-        chrome.tabs.create({ 'url' : 'main.html'});
       };
 
 	  function onGroups(text, xhr) {
@@ -72,14 +71,12 @@
 
 	  function getData(){
 		var contacts = getContacts();
-
-		//var groups = getGroups();
+		var groups = getGroups();
 	  }
 
 	  function getGroups() {
         oauth.authorize(function() {
           console.log("on authorize");
-          setIcon();
           var url = "http://www.google.com/m8/feeds/groups/default/full";
           oauth.sendSignedRequest(url, onGroups, {
             'parameters' : {
@@ -93,7 +90,6 @@
       function getContacts() {
         oauth.authorize(function() {
           console.log("on authorize");
-          setIcon();
           var url = "http://www.google.com/m8/feeds/contacts/default/full";
           oauth.sendSignedRequest(url, onContacts, {
             'parameters' : {
@@ -106,11 +102,10 @@
 
       function logout() {
         oauth.clearTokens();
-        setIcon();
       };
 
-      setIcon();
-      chrome.browserAction.onClicked.addListener(getData);
+      //setIcon();
+      //chrome.browserAction.onClicked.addListener(getData);
 
     </script>
   </head>
