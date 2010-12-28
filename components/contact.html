@@ -64,8 +64,10 @@
 				<div>Select: All , None</div>
 			</div>
 		{{each contacts}}
-			<div class="contact" data-obj_type="contact" data-obj.id="${id}" style="height:35px;">
-				<div> 
+			<div class="contact" data-obj_type="contact" data-obj.id="${id}" >
+				<div><input type="checkbox" name="contactIds" /><a class="edit" onclick="snow.ui.display('dialogContact',{id:'${id}'})" >${name}</a></div>
+			</div>	
+				<!--<div> 
 					<span class="name">Name: <a class="edit" onclick="snow.ui.display('dialogContact',{id:'${id}'})" >${name}</a></span>
 					<span>Address: ${address}</span>
 					<span>Phone: ${phone}</span>
@@ -79,7 +81,7 @@
 				</div>
 				<div class="del" onclick="deleteContact('${id}')" >Del</div>
 				<div class="del"  onclick="snow.ui.display('dialogContact',{id:'${id}'})">Edit&nbsp;</div>
-			</div>	
+				-->
 		{{/each contacts}}
 		</div>
 	</div>
