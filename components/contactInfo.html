@@ -1,0 +1,32 @@
+<!-- contactInfo Component -->
+<script type="text/javascript">
+
+	snow.ui.registerComponent("contactInfo",
+		{
+			parent: "#contactInfo",
+			emptyParent:true
+		},
+		{
+		build: function(data){
+			var params = data || {};
+			var $e = $("#tmpl-contactInfo").tmpl(params);
+			return $e
+		},
+		postDisplay:function(){
+		}
+	});
+
+</script>
+<!--  /contactInfo Component -->
+
+<script id="tmpl-contactInfo" type="text/html">
+	<div id="info-content">
+		<div class="header"></div>
+		<div class="center">
+			{{each infoArrays}}
+			<p>${this}</p>
+			{{/each}}
+		</div>
+	</div>
+</script>
+

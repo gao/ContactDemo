@@ -10,7 +10,8 @@
 		build: function(data){
 			var contacts = snow.dm.find("contact",{});
 
-			if(data && data.groupId){
+			/*
+if(data && data.groupId){
 				var groupContacts = snow.dm.find("groupcontact",{});
 				var a = [];
 				for(var i = 0; i<groupContacts.length;i++){
@@ -28,10 +29,27 @@
 				}
 				contacts = b;
 			}
-			var $cont = null;
-			$cont = $("#contactListTmpl").tmpl({"contacts":contacts});
+*/
+			
+			var $e = null;
+			$e = $("#tmpl-contactList").tmpl({"contacts":contacts});
 		
-			return $cont;
+			return $e;
+		},
+		postDisplay:function(){
+			var thisComponent = this;
+			var $element = this.$element;
+			$element.delegate(".contact .name","click",function(){
+				var $contact = $(this).closest(".contact");
+				var id = $contact.attr("data-obj_id");
+				var contact = snow.dm.get("contact",id);
+				var infoArrays = [];
+				infoArrays.push(contact.name);
+				for(email in contact.emails){
+					infoArrays.push(contact.emails[email]);
+				}
+				snow.ui.display("contactInfo",{infoArrays:infoArrays});
+			});
 		}
 	});
 
@@ -57,15 +75,15 @@
 
 
 
-<script id="contactListTmpl" type="text/html">
+<script id="tmpl-contactList" type="text/html">
 	<div>
 		<div id="contacts-content">
 			<div class="header">
 				<div>Select: All , None</div>
 			</div>
 		{{each contacts}}
-			<div class="contact" data-obj_type="contact" data-obj.id="${id}" >
-				<div><input type="checkbox" name="contactIds" /><a class="edit" onclick="snow.ui.display('dialogContact',{id:'${id}'})" >${name}</a></div>
+			<div class="contact" data-obj_type="contact" data-obj_id="${id}" >
+				<div><input type="checkbox" name="contactIds" /><span class="name">${name}</span></div>
 			</div>	
 				<!--<div> 
 					<span class="name">Name: <a class="edit" onclick="snow.ui.display('dialogContact',{id:'${id}'})" >${name}</a></span>

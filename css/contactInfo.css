@@ -1,0 +1,7 @@
+#info-content > div.header {
+	height:50px;
+	background:rgba(227,233,255,.8);
+}
+#info-content > div.center {
+	padding:5px 0px 0px 15px;
+}
