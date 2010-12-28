@@ -100,6 +100,13 @@
         });
       };
 
+	  function getToken() {
+        oauth.authorize(function() {
+          var url = "http://www.google.com/m8/feeds";
+          oauth.sendSignedRequest(url, getData, {});
+        });
+      };
+
       function logout() {
         oauth.clearTokens();
       };

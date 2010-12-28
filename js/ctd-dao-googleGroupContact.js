@@ -1,16 +1,16 @@
-<!-- mock groupcontact Dao -->	
-	var MockGroupContactDao = (function(){
+<!-- google groupcontact Dao -->	
+	var GoogleGroupContactDao = (function(){
 			
 		var groupContacts = getGroupContacts();
 			
-		function MockGroupContactDao(){};
+		function GoogleGroupContactDao(){};
 
 		// ------ DAO Interface ------ //
-		MockGroupContactDao.prototype.getId = function(objectType,data){
+		GoogleGroupContactDao.prototype.getId = function(objectType,data){
 			return data.id;
 		};
 				
-		MockGroupContactDao.prototype.get = function(objectType,id){
+		GoogleGroupContactDao.prototype.get = function(objectType,id){
 			var groupContact = getGroupContactDataById(id);
 			if (groupContact){
 				return $.extend({},groupContact);
@@ -19,7 +19,7 @@
 			}
 		};		
 				
-		MockGroupContactDao.prototype.find = function(objectType,opts){
+		GoogleGroupContactDao.prototype.find = function(objectType,opts){
 			var a = [];
 			for (var i = 0; i < groupContacts.length; i++){
 				var u = groupContacts[i];
@@ -28,7 +28,7 @@
 			return a;
 		};
 				
-		MockGroupContactDao.prototype.save = function(objectType,data){
+		GoogleGroupContactDao.prototype.save = function(objectType,data){
 			//if it is an update (assume that if there is an id, it exists)
 			if (data.id){
 				var idx = getIndexForGroupContactId(data.id);
@@ -46,7 +46,7 @@
 	
 		};
 				
-		MockGroupContactDao.prototype.remove = function(objectType,id){
+		GoogleGroupContactDao.prototype.remove = function(objectType,id){
 			var idx = getIndexForGroupContactId(id);
 			if (idx != null) {
 				snow.util.array.remove(groupContacts, idx);
@@ -87,7 +87,7 @@
 		}
 		// ------ /Privates ------- //
 
-		return MockGroupContactDao;
+		return GoogleGroupContactDao;
 })();
 
-<!-- /mock groupcontact Dao -->	
+<!-- /google groupcontact Dao -->	

@@ -1,16 +1,16 @@
-<!-- mock group Dao -->	
-	var MockGroupDao = (function(){
+<!-- google group Dao -->	
+	var GoogleGroupDao = (function(){
 			
 		var groups = getGroups();
 			
-		function MockGroupDao(){};
+		function GoogleGroupDao(){};
 
 		// ------ DAO Interface ------ //
-		MockGroupDao.prototype.getId = function(objectType,data){
+		GoogleGroupDao.prototype.getId = function(objectType,data){
 			return data.id;
 		};
 				
-		MockGroupDao.prototype.get = function(objectType,id){
+		GoogleGroupDao.prototype.get = function(objectType,id){
 			var group = getGroupDataById(id);
 			if (group){
 				return $.extend({},group);
@@ -19,7 +19,7 @@
 			}
 		};		
 				
-		MockGroupDao.prototype.find = function(objectType,opts){
+		GoogleGroupDao.prototype.find = function(objectType,opts){
 			var a = [];
 			for (var i = 0; i < groups.length; i++){
 				var u = groups[i];
@@ -28,7 +28,7 @@
 			return a;
 		};
 				
-		MockGroupDao.prototype.save = function(objectType,data){
+		GoogleGroupDao.prototype.save = function(objectType,data){
 			//if it is an update (assume that if there is an id, it exists)
 			if (data.id){
 				var idx = getIndexForGroupId(data.id);
@@ -48,7 +48,7 @@
 	
 		};
 				
-		MockGroupDao.prototype.remove = function(objectType,id){
+		GoogleGroupDao.prototype.remove = function(objectType,id){
 			var idx = getIndexForGroupId(id);
 			if (idx != null) {
 				snow.util.array.remove(groups, idx);
@@ -88,8 +88,8 @@
 		}
 		// ------ /Privates ------- //
 
-		return MockGroupDao;
+		return GoogleGroupDao;
 
 	})();
 
-<!-- mock group Dao -->	
+<!-- google group Dao -->	

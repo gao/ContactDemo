@@ -12,19 +12,34 @@
 		<script type="text/javascript" src="js/jquery.tmpl.js" ></script>		
 		<script type="text/javascript" src="js/snow.core.js" ></script>
 		<script type="text/javascript" src="js/snow.dm.js" ></script>
+		
+		<!-- this is for mock data provider 
+		<script type="text/javascript" src="js/ctd-mockDatas.js" ></script>
 		<script type="text/javascript" src="js/ctd-dao-mockContact.js" ></script>
 		<script type="text/javascript" src="js/ctd-dao-mockGroup.js" ></script>
 		<script type="text/javascript" src="js/ctd-dao-mockGroupContact.js" ></script>
-		<script type="text/javascript" src="js/ctd-mockDatas.js" ></script>
+		<script type="text/javascript" src="js/ctd-daos-mock.js" ></script>
+		-->
 
+		<!-- this is for google data provider -->
+		<script type="text/javascript" src="js/ctd-dao-googleContact.js" ></script>
+		<script type="text/javascript" src="js/ctd-dao-googleGroup.js" ></script>
+		<script type="text/javascript" src="js/ctd-dao-googleGroupContact.js" ></script>
+		<script type="text/javascript" src="js/ctd-daos-gdata.js" ></script>
+		
+		
     </head>
     <body>
     	<div>
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
 	        <h2>snow.ui contacts demo</h2>
 			
+			<div id="login" class="login" style="display:none;">
+				<button onclick="login();">Login</button>
+			</div>
+
 			<div id="logout" class="logout" style="display:none;">
-				<button onclick="logout();">Click here to clear your OAuth token</button>
+				<button onclick="logout();">Logout</button>
 			</div>
 
 			<div id="container">
@@ -34,12 +49,31 @@
 		</div> 
 
 		<script type="text/javascript">
+			function login() {
+				chrome.extension.getBackgroundPage().getToken();
+			};
 			function logout() {
 				chrome.extension.getBackgroundPage().logout();
 			};
 		</script>
 		<script>
 			$(document).ready(function(){
+
+				if(dataProviderType == "mockData"){
+					localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
+					localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
+				}else if(dataProviderType == "googleData"){
+					var hasToken = chrome.extension.getBackgroundPage().oauth.hasToken();
+					if(hasToken){
+						$("#logout").show();
+						$("#login").hide();
+						chrome.extension.getBackgroundPage().getData();
+						//alert(localStorage.getItem("contacts"));
+					}else{
+						$("#login").show();
+						$("#logout").hide();
+					}
+				}
 				
 				snow.ui.display('group');
 				snow.ui.display('contact');

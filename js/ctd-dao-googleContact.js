@@ -1,16 +1,16 @@
-<!-- mock contact Dao -->		
-	var MockContactDao = (function(){
+<!-- google contact Dao -->		
+	var GoogleContactDao = (function(){
 
 		var contactStore = getContacts();
 		
-		function MockContactDao(){};
+		function GoogleContactDao(){};
 
 		// ------ DAO Interface ------ //
-		MockContactDao.prototype.getId = function(objectType,data){
+		GoogleContactDao.prototype.getId = function(objectType,data){
 			return data.id;
 		};
 							
-		MockContactDao.prototype.get = function(objectType,id){
+		GoogleContactDao.prototype.get = function(objectType,id){
 			var contact = getContactDataById(id);
 			if (contact){
 				var groupContacts = getGroupContacts();
@@ -36,7 +36,7 @@
 			}
 		};
 
-		MockContactDao.prototype.find = function(objectType,opts){
+		GoogleContactDao.prototype.find = function(objectType,opts){
 			var a = [];
 			var groupContacts = getGroupContacts();
 			var groups = getGroups();
@@ -64,7 +64,7 @@
 			return a;
 		};
 										
-		MockContactDao.prototype.save = function(objectType,data){
+		GoogleContactDao.prototype.save = function(objectType,data){
 			//if it is an update (assume that if there is an id, it exists)
 			if (data.id){
 				var idx = getIndexForContactId(data.id);
@@ -83,7 +83,7 @@
 								
 		};
 							
-		MockContactDao.prototype.remove = function(objectType,id){
+		GoogleContactDao.prototype.remove = function(objectType,id){
 			var idx = getIndexForContactId(id);
 			if (idx != null) {
 				snow.util.array.remove(contactStore, idx);
@@ -143,7 +143,7 @@
 		}
 		// ------ /Privates ------- //
 						
-		return MockContactDao;
+		return GoogleContactDao;
 
 	})();
-<!-- /mock contact Dao -->
+<!-- /google contact Dao -->
