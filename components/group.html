@@ -37,27 +37,26 @@
 
 
 <script id="groupListTmpl" type="text/html">
-	<div class="panel">
-		<div class="panel-header">
-			<button class="action" onclick="snow.ui.display('dialogGroup',{})">Create Group</button>
-			<h1>Groups</h1>
-		</div>
-
-		<div class="panel-content">
-			<ul>
-				<li data-obj_type="group">
-					<span class="name"><a class="edit" onclick="snow.ui.display('contact')">(All Groups)</a></span>
-				</li>
+	<div>
+		<div id="groups-content">
+				<div class="group all-group" data-obj_type="group">
+					<div><a class="edit" onclick="snow.ui.display('contact')">All Groups</a></div>
+				</div>
+				<div class="line" />
 				{{each groups}}
-					<li data-obj_type="group" data-obj.id="${id}">
-						<span class="name"><a class="edit" onclick="snow.ui.display('contact',{groupId:'${id}'})">${name}</a></span>
+					<div class="group" data-obj_type="group" data-obj.id="${id}">
+						<div><a class="edit" onclick="snow.ui.display('contact',{groupId:'${id}'})">${name}</a></div>
+						<!--
 						<span class="del" onclick="deleteGroup('${id}')" >Del</span>
 						<span class="del"  onclick="snow.ui.display('dialogGroup',{id:'${id}'})" >Edit&nbsp;</span>
-					</li>	
+						-->
+					</div>	
 				{{/each groups}}
-			</ul>
+				<div class="line" />
+				<div class="group recent-group" data-obj_type="group">
+					<div><a class="edit" onclick="snow.ui.display('contact')">Recent Contacts</a></div>
+				</div>
 		</div>
-	
 	</div>
 </script>
 

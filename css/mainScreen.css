@@ -1,0 +1,46 @@
+.mainScreen{
+	border:2px solid rgba(187,204,255,.8);
+	width:1200px;
+	height:500px;
+	margin:0 auto;
+}
+
+.mainScreen > .top{
+	width:100%;
+	height:40px;
+	background:rgba(187,204,255,.8);
+}
+
+.mainScreen > .center{
+	height:450px;
+	padding:0;
+	position:relative;
+}
+
+.mainScreen > .center #groupList{
+	position:absolute;
+	width:250px;
+	left:0;
+	top:0;
+}
+
+.mainScreen > .center #contactList{
+	width: 300px;
+	position:absolute;
+	left:250px;
+	top:0;
+}
+
+.mainScreen > .center #contactInfo{
+	position:absolute;
+	width:650px;
+	left:550px;
+	top:0;
+}
+
+.mainScreen > .bottom{
+	width:100%;
+	height:10px;
+	background:rgba(187,204,255,.8);
+}
+

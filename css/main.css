@@ -17,13 +17,6 @@ body{
 }
 
 
-li{
-	list-style: none;
-	margin-bottom: 3px;
-	border: solid 1px #aaaaaa;
-	padding: 3px 5px;	
-	height:20px;
-}
 			
 			
 .del{
@@ -69,55 +62,12 @@ a:visited{ text-decoration: none;}
 
 /*-- panel --*/
 .panel{
-	padding-bottom: 10px;
 	border: solid 1px #BCF;
-	background-repeat: repeat-x;
-	-webkit-transition: all .3s ease-in-out;
-}
-
-.panel-header{
-	border-bottom: solid 1px #333333;
-	padding: 10px;
-	cursor: pointer;
-	font-size: 12px;
-}
-
-.panel-header > h1{
-	text-align: center;	
-	margin: 2px 0;
-	font-weight: normal;
-	font-size: 20px;
-	text-shadow:rgba(255,255,255,.5) 0px 1px 0, #000 0 1px 0;
-	letter-spacing: .1em;
-}
-.panel-header > button.action{
-	float: right;
-}
-.panel-content{
 	font-size: 11px;
+	width:100%;
+	height:100%;
+	margin:0;
+	overflow:auto;
+	overflow-x:hidden;
 }
 /*-- /panel --*/
-
-
-#container{
-	width:950px;
-	margin-top:50px;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-#groupList{
-	left: 20px;
-	width: 300px;
-	float:left;
-	margin-right:5px;
-	position: absolute;
-}
-#contactList{
-	width: 600px;
-	position: absolute;
-    right: 0;
-    left: 330px;
-    overflow: auto;
-	float:left;
-}

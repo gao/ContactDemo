@@ -1,10 +1,12 @@
-
-.group{
-	float:left
+#groups-content > div.group {
 }
 
-.groupValue{
-	background-color:#FFFFFF;
-	color: #000000;
-	cursor:pointer
+#groups-content > div.group > div{
+	padding:5px 10px 5px 10px;
+}
+
+#groups-content > div.line {
+	height:1px;
+	margin:0 5px;
+	border-top:1px solid rgba(187,204,255,.8);
 }

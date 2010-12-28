@@ -21,8 +21,16 @@
 
 <script id="tmpl-mainScreen" type="text/html">
 	<div class="mainScreen">
-		<div id="groupList"></div> 	
-		<div id="contactList"></div> 
+		<div class="top">
+			<button class="action" onclick="snow.ui.display('dialogGroup',{})">Create Group</button>
+			<button class="action"  onclick="snow.ui.display('dialogContact',{})">Create Contact</button>
+		</div>
+		<div class="center">
+			<div id="groupList" class="panel"></div> 	
+			<div id="contactList" class="panel"></div> 
+			<div id="contactInfo" class="panel"></div>
+		</div>
+		<div class="bottom"></div> 	
 	</div>
 </script>
 
