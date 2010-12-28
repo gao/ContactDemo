@@ -23,21 +23,9 @@
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
 	        <h2>snow.ui contacts demo</h2>
 			
-			<div class="div-lblVal">
-				<div class="div-lbl">Data Type:</div>
-				<div class="div-val">
-					<select id="dataType" name="dataType">
-						<option value="-1">--Select Data type--</option>
-						<option value="googleData">Google Data</option>
-						<option value="mockData">Mock Data</option>
-					</select>
-				</div>
-			</div>
-			
 			<div id="logout" class="logout" style="display:none;">
 				<button onclick="logout();">Click here to clear your OAuth token</button>
 			</div>
-			<button onclick="window.location.reload();">Refresh</button>
 
 			<div id="container">
 				<div id="groupList"></div> 	
@@ -48,38 +36,10 @@
 		<script type="text/javascript">
 			function logout() {
 				chrome.extension.getBackgroundPage().logout();
-				window.close();
 			};
 		</script>
 		<script>
 			$(document).ready(function(){
-				$("#dataType").change(function(){
-					var $this = $(this);
-					var value = $this.attr("value");
-					
-					//first clear the local storage
-					localStorage.removeItem("groups");
-					localStorage.removeItem("contacts");
-					localStorage.removeItem("groupContacts");
-					
-					if(value == "mockData"){
-						localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
-						localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
-					}else if(value == "googleData"){
-						var hasToken = chrome.extension.getBackgroundPage().oauth.hasToken();
-						if(hasToken){
-							//$("#logout").show();
-							chrome.extension.getBackgroundPage().getData();
-							//alert(localStorage.getItem("contacts"));
-						}else{
-							chrome.extension.getBackgroundPage().getContacts();
-						}
-					}
-					
-					window.location.reload();
-					snow.ui.display('group');
-					snow.ui.display('contact');				
-				});
 				
 				snow.ui.display('group');
 				snow.ui.display('contact');
