@@ -1,0 +1,10 @@
+
+.group{
+	float:left
+}
+
+.groupValue{
+	background-color:#FFFFFF;
+	color: #000000;
+	cursor:pointer
+}
