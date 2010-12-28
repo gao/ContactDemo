@@ -1,0 +1,28 @@
+<!-- mainScreen Component -->
+<script type="text/javascript">
+
+	snow.ui.registerComponent("mainScreen",
+		{
+			parent: "#container"
+		},
+		{
+		build: function(){
+			var $e = $("#tmpl-mainScreen").tmpl({});
+			return $e
+		},
+		postDisplay:function(){
+			snow.ui.display("group");
+			snow.ui.display("contact");
+		}
+	});
+
+</script>
+<!--  /mainScreen Component -->
+
+<script id="tmpl-mainScreen" type="text/html">
+	<div class="mainScreen">
+		<div id="groupList"></div> 	
+		<div id="contactList"></div> 
+	</div>
+</script>
+
