@@ -11,18 +11,12 @@
 }
 
 body{
-	background: #333333;
-	font-family: Chalkduster;
-	color: #ffffff;	
-	
+	background: #ffffff;
+	font-family: Arial;	
 }
 
 button{
 	padding: 5px 7px;
-	-webkit-border-radius: 10px;
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6D726D), to(#343B34));
-	border: solid 1px #333333;
-	color: #ffffff;
 	font-size: 13px;
 	cursor: pointer;
 }
