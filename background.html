@@ -20,14 +20,7 @@
       });
 
       var contacts = null;
-
-      function setIcon() {
-        if (oauth.hasToken()) {
-          chrome.browserAction.setIcon({ 'path' : 'img/icon-19-on.png'});
-        } else {
-          chrome.browserAction.setIcon({ 'path' : 'img/icon-19-off.png'});
-        }
-      };
+	  var groups = null;
 
       function onContacts(text, xhr) {
         contacts = [];
@@ -70,8 +63,8 @@
       };
 
 	  function getData(){
-		var contacts = getContacts();
-		var groups = getGroups();
+		getContacts();
+		getGroups();
 	  }
 
 	  function getGroups() {
@@ -110,9 +103,6 @@
       function logout() {
         oauth.clearTokens();
       };
-
-      //setIcon();
-      //chrome.browserAction.onClicked.addListener(getData);
 
     </script>
   </head>
