@@ -1,8 +1,20 @@
 #groups-content > div.group {
+	cursor:pointer;
 }
 #groups-content > div.group:hover {
 	background:rgba(227,233,255,.8);
 }
+#groups-content > div.group.checked {
+	background:rgba(102,136,238,.8);
+	color:rgba(255,255,255,1);
+}
+#groups-content > div.group.checked span{
+	font-weight:bold;
+}
+#groups-content > div.group  *{
+	cursor:pointer;
+}
+
 #groups-content > div.group > div{
 	padding:5px 10px 5px 10px;
 }

@@ -39,10 +39,29 @@ if(data && data.groupId){
 		postDisplay:function(){
 			var thisComponent = this;
 			var $element = this.$element;
-			$element.delegate(".contact .name","click",function(){
-				var $contact = $(this).closest(".contact");
+			$element.delegate(".contact","click",function(){
+				var $contact = $(this);
+				$("#contacts-content").find(".contact").removeClass("checked");
+				$contact.addClass("checked");
+				
+				$("#contacts-content").find(".contact input[type='checkbox']").removeAttr("checked");
+				$contact.find("input[type='checkbox']").attr("checked",true);
+				
 				var id = $contact.attr("data-obj_id");
 				snow.ui.display("contactInfo",{id:id});
+			});
+			
+			//e.stopPropagation() can not work if use 'delegate'
+			$element.find("input").bind("click",function(e){
+				e.stopPropagation();
+				var $checkbox = $(this);
+				var $contact = $(this).closest(".contact");
+				if($checkbox.attr("checked")==true){
+					$contact.addClass("checked");
+				}else{
+					$contact.removeClass("checked");
+				}
+				
 			});
 		}
 	});

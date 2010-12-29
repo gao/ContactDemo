@@ -17,8 +17,12 @@
 		postDisplay:function(){
 			var thisComponent = this;
 			var $element = this.$element;
-			$element.delegate(".group .name","click",function(){
-				var $group = $(this).closest(".group");
+			$element.delegate(".group ","click",function(){
+				var $group = $(this);
+				
+				$("#groups-content").find(".group").removeClass("checked");
+				$group.addClass("checked");
+				
 				var id = $group.attr("data-obj_id");
 				snow.ui.display("groupInfo",{id:id});
 			});

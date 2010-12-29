@@ -4,6 +4,7 @@
 	padding: 0;
 	font-weight: normal;
 	cursor: default;
+	-webkit-user-select:none;
 }
 @font-face {
   font-family: Chalkduster;
@@ -37,11 +38,6 @@ button{
 	font-size: 13px;
 	cursor: pointer;
 }
-a{color:#006600;}
-a:link{ text-decoration: none;color:#006600;}
-a:active{ text-decoration:blink}
-a:hover{ text-decoration:underline;color: red;cursor:pointer} 
-a:visited{ text-decoration: none;}
 /* -- /main --*/
 
 .div-lblVal{
