@@ -44,7 +44,7 @@
 
 			localStorage.groups = JSON.stringify(groups);
 
-			return groupDao.get(objectType,data.id);
+			return this.get(objectType,data.id);
 	
 		};
 				
