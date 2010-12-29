@@ -3,14 +3,18 @@
 
 	snow.ui.registerComponent("contactInfo",
 		{
-			parent: "#contactInfo",
+			parent: "#trdCol",
 			emptyParent:true
 		},
 		{
 		build: function(data){
-			var params = data || {};
-			var $e = $("#tmpl-contactInfo").tmpl(params);
-			return $e
+			var contact = {};
+			if(data && data.id){
+				var contactId  = data.id;
+				contact = snow.dm.get("contact",contactId);
+			}
+			var $e = $("#tmpl-contactInfo").tmpl(contact);
+			return $e;
 		},
 		postDisplay:function(){
 		}
@@ -23,9 +27,12 @@
 	<div id="info-content">
 		<div class="header"></div>
 		<div class="center">
-			{{each infoArrays}}
-			<p>${this}</p>
-			{{/each}}
+			<p class="name">${name}</p>
+			<p class="email">
+				{{each emails}}
+					${this}
+				{{/each}}
+			</p>
 		</div>
 	</div>
 </script>

@@ -17,21 +17,21 @@
 	position:relative;
 }
 
-.mainScreen > .center #groupList{
+.mainScreen > .center #fstCol{
 	position:absolute;
 	width:250px;
 	left:0;
 	top:0;
 }
 
-.mainScreen > .center #contactList{
+.mainScreen > .center #secCol{
 	width: 300px;
 	position:absolute;
 	left:250px;
 	top:0;
 }
 
-.mainScreen > .center #contactInfo{
+.mainScreen > .center #trdCol{
 	position:absolute;
 	width:650px;
 	left:550px;

@@ -7,3 +7,9 @@
 #info-content > div.center {
 	padding:5px 0px 0px 15px;
 }
+
+#info-content > div.center p.name{
+	font-size:14px;
+	font-weight:bold;
+	margin: 0 0 10px 0;
+}

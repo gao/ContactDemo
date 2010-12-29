@@ -3,7 +3,7 @@
 
 	snow.ui.registerComponent("contact",
 		{
-			parent: "#contactList",
+			parent: "#secCol",
 			emptyParent: true
 		},
 		{
@@ -42,13 +42,8 @@ if(data && data.groupId){
 			$element.delegate(".contact .name","click",function(){
 				var $contact = $(this).closest(".contact");
 				var id = $contact.attr("data-obj_id");
-				var contact = snow.dm.get("contact",id);
-				var infoArrays = [];
-				infoArrays.push(contact.name);
-				for(email in contact.emails){
-					infoArrays.push(contact.emails[email]);
-				}
-				snow.ui.display("contactInfo",{infoArrays:infoArrays});
+				snow.log.info(id);
+				snow.ui.display("contactInfo",{id:id});
 			});
 		}
 	});
