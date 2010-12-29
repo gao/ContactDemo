@@ -1,12 +1,14 @@
 #groups-content > div.group {
 }
-
+#groups-content > div.group:hover {
+	background:rgba(227,233,255,.8);
+}
 #groups-content > div.group > div{
 	padding:5px 10px 5px 10px;
 }
 
 #groups-content > div.line {
 	height:1px;
-	margin:0 5px;
+	margin:1px 5px 3px 5px;
 	border-top:1px solid rgba(187,204,255,.8);
 }

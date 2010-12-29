@@ -2,12 +2,17 @@
 #contacts-content > div.header {
 	padding:5px 5px 5px 5px;
 	background:rgba(227,233,255,.8);
+	border-top:solid 1px rgba(204,204,204,.8);
+	border-bottom:solid 1px rgba(204,204,204,.8);
+	margin:0 0 3px 0;
 }
 
 #contacts-content > div.contact {
 	padding:1px 0px 1px 0px;
 }
-
+#contacts-content > div.contact:hover {
+	background:rgba(227,233,255,.8);
+}
 #contacts-content > div.contact  input[type='checkbox'] {
 	margin:0px 5px 0px 5px;
 }

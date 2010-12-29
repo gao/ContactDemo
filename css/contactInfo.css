@@ -1,6 +1,8 @@
 #info-content > div.header {
 	height:50px;
 	background:rgba(227,233,255,.8);
+	border-top:solid 1px rgba(204,204,204,.8);
+	border-bottom:solid 1px rgba(204,204,204,.8);
 }
 #info-content > div.center {
 	padding:5px 0px 0px 15px;
