@@ -20,21 +20,22 @@
 		postDisplay:function(data){
 			var component = this;
 			var $element = this.$element;
+			var id = $element.find("input[name='id']").val();
 			$element.find(".btnCancel").click(function(){
-				var id = $element.find("input[name='id']").val();
 				snow.ui.display("groupInfo",{id:id});
 			});
 			$element.find(".btnOk").click(function(){
-				var id = $element.find("input[name='id']").val();
-				updateGroup();
-				snow.ui.display("groupInfo",{id:id});
+				var group = updateGroup();
+				snow.ui.display("groupInfo",{id:group.id});
 			});
+			
 			// helper functions
 			function updateGroup(){
 				var group = {};
 				group.id = $element.find("input[name='id']").val();
 				group.name = $element.find("input[name='name']").val();
 				snow.dm.save("group",group);
+				return group;
 			}
 		}
 	});
@@ -56,7 +57,7 @@
 				<div class="formItem">
 					<div class="formItem-label">Name</div>
 					<div class="formItem-value">
-						<input name="name" type="text" value="${ name }" />
+						<input name="name" type="text" autocomplete="off" value="${ name }" />
 					</div>
 				</div>
 			</form>

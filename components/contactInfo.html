@@ -17,6 +17,22 @@
 			return $e;
 		},
 		postDisplay:function(){
+			var thisComponent = this;
+			var $element = this.$element;
+			var id = $element.find(".main-content .contactInfo[data-obj_id]").attr("data-obj_id");
+			$element.find(".btnEdit").click(function(){
+				snow.ui.display("contactForm",{id:id});
+			});
+			$element.find(".btnDeleteContact").click(function(){
+				deleteContact(id);
+				snow.ui.display("contactInfo");
+				snow.ui.display("contact");
+			});
+			
+			//helper functions
+			function deleteContact(id){
+				snow.dm.remove("contact",id);
+			}
 		}
 	});
 
@@ -25,9 +41,13 @@
 
 <script id="tmpl-contactInfo" type="text/html">
 	<div class="main">
-		<div class="main-header"></div>
+		<div class="main-header">
+			<button class="btnEdit">Edit</button>
+			<button class="btnGroup" disabled>Group</button>
+			<button class="btnDeleteContact">Delete Contact</button>
+		</div>
 		<div class="main-content">
-			<div>
+			<div class="contactInfo" data-obj_id="${id}">
 				<p class="name">${name}</p>
 				<p class="email">
 					{{each emails}}

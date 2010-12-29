@@ -1,0 +1,81 @@
+
+<script type="text/javascript">
+	
+	
+	snow.ui.registerComponent("contactForm",
+		{
+			parent: "#trdCol",
+			emptyParent:true
+		},
+		{
+		build: function(data){
+			var id = null;
+			if(data && data.id){
+				id = data.id;
+			}
+			var contact = snow.dm.get("contact",id);
+			var $e = $("#tmpl-contactForm").tmpl(contact);
+			return $e;
+		},
+		postDisplay:function(data){
+			var component = this;
+			var $element = this.$element;
+			var id = $element.find("input[name='id']").val();
+			$element.find(".btnCancel").click(function(){
+				snow.ui.display("contactInfo",{id:id});
+			});
+			$element.find(".btnOk").click(function(){
+				var contact = updateContact();
+				snow.ui.display("contactInfo",{id:contact.id});
+				snow.ui.display("contact");
+			});
+			
+			// helper functions
+			function updateContact(){
+				var contact = {};
+				contact.id = $element.find("input[name='id']").val();
+				contact.name = $element.find("input[name='name']").val();
+				contact.address = $element.find("input[name='address']").val();
+				contact.phone = $element.find("input[name='phone']").val();
+				snow.dm.save("contact",contact);
+				return contact;
+			}
+		}
+	});
+
+	
+</script>
+
+<!-- templates-->
+<script id="tmpl-contactForm" type="text/html">
+		<div class="main">
+		<div class="main-header">
+			<button class="btnOk">Save</button>
+			<button class="btnCancel">Cancel</button>
+		</div>
+		<div class="main-content">
+			<form id="contactForm">
+				<input name="id" type="hidden" value="${ id }" />
+				<div class="formItem">
+					<div class="formItem-label">Name:</div>
+					<div class="formItem-value">
+						<input name="name" autocomplete="off" type="text" value="${ name }" />
+					</div>
+				</div>
+				<div class="formItem">
+					<div class="formItem-label">Address:</div>
+					<div class="formItem-value">
+						<input name="address" autocomplete="off" type="text" value="${ address }" />
+					</div>
+				</div>
+				<div class="formItem">
+					<div class="formItem-label">Phone:</div>
+					<div class="formItem-value">
+						<input name="phone" autocomplete="off" type="text" value="${ phone }" />
+					</div>
+				</div>
+		</form>
+		</div>
+	</div>
+</script>
+<!-- /templates -->
