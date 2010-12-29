@@ -10,7 +10,7 @@
 		build: function(data){
 			var groups = snow.dm.find("group",{});
 			var $group = null;
-			$group = $("#groupListTmpl").tmpl({"groups":groups});
+			$group = $("#tmpl-groupList").tmpl({"groups":groups});
 		
 			return $group
 		},
@@ -29,27 +29,13 @@
 		}
 	});
 
-	
-	function deleteGroup(id){
-		snow.dm.remove("group",id);
-		var groupContacts = snow.dm.find("groupcontact",{});
-		for(var i=0;i<groupContacts.length;i++){
-			var o = groupContacts[i];
-			if(id == o.groupId){
-				snow.dm.remove("groupcontact",o.id);
-			}
-		}
-		snow.ui.display("group");
-		snow.ui.display('contact');
-	}
-
 
 </script>
 <!--  /Simple groupsComponent -->
 
 
 
-<script id="groupListTmpl" type="text/html">
+<script id="tmpl-groupList" type="text/html">
 	<div>
 		<div id="groups-content">
 				<div class="group all-group" data-obj_type="group">
@@ -59,11 +45,6 @@
 				{{each groups}}
 					<div class="group" data-obj_type="group" data-obj_id="${id}">
 						<div><span class="name">${name}</span></div>
-						<!--
-						<div><a class="edit" onclick="snow.ui.display('contact',{groupId:'${id}'})">${name}</a></div>
-						<span class="del" onclick="deleteGroup('${id}')" >Del</span>
-						<span class="del"  onclick="snow.ui.display('dialogGroup',{id:'${id}'})" >Edit&nbsp;</span>
-						-->
 					</div>	
 				{{/each groups}}
 				<div class="line" />

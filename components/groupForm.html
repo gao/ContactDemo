@@ -1,0 +1,66 @@
+
+<script type="text/javascript">
+	
+	
+	snow.ui.registerComponent("groupForm",
+		{
+			parent: "#trdCol",
+			emptyParent:true
+		},
+		{
+		build: function(data){
+			var id = "";
+			if(data && data.id){
+				id = data.id;
+			}
+			var group = snow.dm.get("group",id);
+			var $e = $("#tmpl-groupForm").tmpl(group);
+			return $e;
+		},
+		postDisplay:function(data){
+			var component = this;
+			var $element = this.$element;
+			$element.find(".btnCancel").click(function(){
+				var id = $element.find("input[name='id']").val();
+				snow.ui.display("groupInfo",{id:id});
+			});
+			$element.find(".btnOk").click(function(){
+				var id = $element.find("input[name='id']").val();
+				updateGroup();
+				snow.ui.display("groupInfo",{id:id});
+			});
+			// helper functions
+			function updateGroup(){
+				var group = {};
+				group.id = $element.find("input[name='id']").val();
+				group.name = $element.find("input[name='name']").val();
+				snow.dm.save("group",group);
+			}
+		}
+	});
+
+	
+
+</script>
+
+<!-- templates-->
+<script id="tmpl-groupForm" type="text/html">
+	<div class="main">
+		<div class="main-header">
+			<button class="btnOk">save</button>
+			<button class="btnCancel">cancel</button>
+		</div>
+		<div class="main-content">
+			<form id="groupForm">	
+				<input name="id" type="hidden" value="${ id }" />
+				<div class="formItem">
+					<div class="formItem-label">Name</div>
+					<div class="formItem-value">
+						<input name="name" type="text" value="${ name }" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</script>
+<!-- /templates -->

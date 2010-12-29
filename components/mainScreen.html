@@ -11,9 +11,16 @@
 			return $e
 		},
 		postDisplay:function(){
+			var component = this;
+			var $element = this.$element;
+			
 			snow.ui.display("group");
 			snow.ui.display("contact");
 			snow.ui.display("contactInfo");
+			
+			$element.find(".btnCreateGroup").click(function(){
+				snow.ui.display("groupForm");
+			});
 		}
 	});
 
@@ -23,15 +30,14 @@
 <script id="tmpl-mainScreen" type="text/html">
 	<div class="mainScreen">
 		<div class="top">
-			<button class="action" onclick="snow.ui.display('dialogGroup',{})">Create Group</button>
-			<button class="action"  onclick="snow.ui.display('dialogContact',{})">Create Contact</button>
+			<button class="btnCreateGroup">Create Group</button>
+			<button class="btnCreateContact">Create Contact</button>
 		</div>
 		<div class="center">
 			<div id="fstCol" class="panel"></div> 	
 			<div id="secCol" class="panel"></div> 
 			<div id="trdCol" class="panel">
-				<div class="header"></div>
-				<div id="trdCol-content" class="content"></div>
+				
 			</div>
 		</div>
 		<div class="bottom"></div> 	

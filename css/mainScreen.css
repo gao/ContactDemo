@@ -37,17 +37,17 @@
 	left:550px;
 	top:0;
 }
-.mainScreen > .center #trdCol > .header{
+.mainScreen > .center #trdCol .main > .main-header{
 	height:50px;
 	background:rgba(227,233,255,1);
 	border-top:solid 1px rgba(204,204,204,1);
 	border-bottom:solid 1px rgba(204,204,204,1);
 }
-.mainScreen > .center #trdCol > .content {
+.mainScreen > .center #trdCol .main > .main-content {
 	padding:5px 0px 0px 15px;
 }
 
-.mainScreen > .center #trdCol > .content p.name{
+.mainScreen > .center #trdCol .main > .main-content p.name{
 	font-size:14px;
 	font-weight:bold;
 	margin: 0 0 10px 0;

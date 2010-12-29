@@ -3,7 +3,7 @@
 
 	snow.ui.registerComponent("groupInfo",
 		{
-			parent: "#trdCol-content",
+			parent: "#trdCol",
 			emptyParent:true
 		},
 		{
@@ -17,15 +17,45 @@
 			return $e;
 		},
 		postDisplay:function(){
+			var thisComponent = this;
+			var $element = this.$element;
+			var id = $element.find(".main-content .groupInfo[data-obj_id]").attr("data-obj_id");
+			$element.find(".btnEdit").click(function(){
+				snow.ui.display("groupForm",{id:id});
+			});
+			$element.find(".btnDeleteGroup").click(function(){
+				deleteGroup(id);
+				snow.ui.display("contactInfo");
+			});
+			//helper functions
+			function deleteGroup(id){
+				snow.dm.remove("group",id);
+				var groupContacts = snow.dm.find("groupcontact",{});
+				for(var i=0;i<groupContacts.length;i++){
+					var o = groupContacts[i];
+					if(id == o.groupId){
+						snow.dm.remove("groupcontact",o.id);
+					}
+				}
+			}
 		}
 	});
-
+	
 </script>
 <!--  /groupInfo Component -->
 
 <script id="tmpl-groupInfo" type="text/html">
-	<div id="groupInfo-content">
-		<p class="name">${name}</p>
+	<div class="main">
+		<div class="main-header">
+			<button class="btnEdit">Edit</button>
+			<button class="btnGroup" disabled>Group</button>
+			<button class="btnDeleteGroup">Delete Group</button>
+		</div>
+		<div class="main-content">
+			<div class="groupInfo" data-obj_id="${id}">
+				<p class="name" >${name}</p>
+			</div>
+		</div>
 	</div>
 </script>
 
