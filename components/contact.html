@@ -42,7 +42,6 @@ if(data && data.groupId){
 			$element.delegate(".contact .name","click",function(){
 				var $contact = $(this).closest(".contact");
 				var id = $contact.attr("data-obj_id");
-				snow.log.info(id);
 				snow.ui.display("contactInfo",{id:id});
 			});
 		}

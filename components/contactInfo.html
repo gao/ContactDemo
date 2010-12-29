@@ -3,7 +3,7 @@
 
 	snow.ui.registerComponent("contactInfo",
 		{
-			parent: "#trdCol",
+			parent: "#trdCol-content",
 			emptyParent:true
 		},
 		{
@@ -24,16 +24,13 @@
 <!--  /contactInfo Component -->
 
 <script id="tmpl-contactInfo" type="text/html">
-	<div id="info-content">
-		<div class="header"></div>
-		<div class="center">
+	<div>
 			<p class="name">${name}</p>
 			<p class="email">
 				{{each emails}}
 					${this}
 				{{/each}}
 			</p>
-		</div>
 	</div>
 </script>
 

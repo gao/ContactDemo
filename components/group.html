@@ -13,6 +13,15 @@
 			$group = $("#groupListTmpl").tmpl({"groups":groups});
 		
 			return $group
+		},
+		postDisplay:function(){
+			var thisComponent = this;
+			var $element = this.$element;
+			$element.delegate(".group .name","click",function(){
+				var $group = $(this).closest(".group");
+				var id = $group.attr("data-obj_id");
+				snow.ui.display("groupInfo",{id:id});
+			});
 		}
 	});
 
@@ -44,9 +53,10 @@
 				</div>
 				<div class="line" />
 				{{each groups}}
-					<div class="group" data-obj_type="group" data-obj.id="${id}">
-						<div><a class="edit" onclick="snow.ui.display('contact',{groupId:'${id}'})">${name}</a></div>
+					<div class="group" data-obj_type="group" data-obj_id="${id}">
+						<div><span class="name">${name}</span></div>
 						<!--
+						<div><a class="edit" onclick="snow.ui.display('contact',{groupId:'${id}'})">${name}</a></div>
 						<span class="del" onclick="deleteGroup('${id}')" >Del</span>
 						<span class="del"  onclick="snow.ui.display('dialogGroup',{id:'${id}'})" >Edit&nbsp;</span>
 						-->
