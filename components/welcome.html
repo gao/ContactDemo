@@ -1,0 +1,32 @@
+<!-- welcome Component -->
+<script type="text/javascript">
+
+	snow.ui.registerComponent("welcome",
+		{
+			parent: "#trdCol",
+			emptyParent:true
+		},
+		{
+		build: function(data){
+			var $e = $("#tmpl-welcome").tmpl();
+			return $e;
+		},
+		postDisplay:function(){
+		}
+	});
+
+</script>
+<!--  /welcome Component -->
+
+<script id="tmpl-welcome" type="text/html">
+	<div class="main">
+		<div class="main-header">
+			<span class="button btnEdit disable"><span class="ico icoEdit"></span><span class="text">Edit</span></span>
+			<span class="button btnGroup disable"><span class="ico icoGroup"></span><span class="text">Group</span><span class="ico icoDown"></span></span>
+			<span class="button btnDeleteContact disable del "><span class="ico icoDel"></span><span class="text">Delete Contact</span></span>
+		</div>
+		<div class="main-content">
+		</div>
+	</div>
+</script>
+
