@@ -41,14 +41,13 @@ if(data && data.groupId){
 			var $element = this.$element;
 			$element.delegate(".contact","click",function(){
 				var $contact = $(this);
-				$("#contacts-content").find(".contact").removeClass("checked");
-				$contact.addClass("checked");
+				$element.find(".contact").each(function(){
+					disCheck($(this));
+				});
+				showCheck($contact);
 				
-				$("#contacts-content").find(".contact input[type='checkbox']").removeAttr("checked");
-				$contact.find("input[type='checkbox']").attr("checked",true);
-				
-				var id = $contact.attr("data-obj_id");
-				snow.ui.display("contactInfo",{id:id});
+				var contactIds = thisComponent.getCheckedContactIds();
+				snow.ui.display("contactInfo",{ids:contactIds});
 			});
 			
 			//e.stopPropagation() can not work if use 'delegate'
@@ -56,13 +55,57 @@ if(data && data.groupId){
 				e.stopPropagation();
 				var $checkbox = $(this);
 				var $contact = $(this).closest(".contact");
+				toggleCheck($contact);
+				
+				var contactIds = thisComponent.getCheckedContactIds();
+				snow.ui.display("contactInfo",{ids:contactIds});
+			});
+			
+			$element.find("#all").bind("click",function(e){
+				e.preventDefault();
+				$element.find(".contact").each(function(){
+					showCheck($(this));
+				});
+				var contactIds = thisComponent.getCheckedContactIds();
+				snow.ui.display("contactInfo",{ids:contactIds});
+			});
+			$element.find("#none").bind("click",function(e){
+				e.preventDefault();
+				$element.find(".contact").each(function(){
+					disCheck($(this));
+				});
+				var contactIds = thisComponent.getCheckedContactIds();
+				snow.ui.display("contactInfo",{ids:contactIds});
+			});
+			
+			//Helper functions
+			function showCheck($contact){
+				var $checkbox = $contact.find("input");
+				$checkbox.attr("checked",true);
+				$contact.addClass("checked");
+			}
+			function disCheck($contact){
+				var $checkbox = $contact.find("input");
+				$checkbox.removeAttr("checked");
+				$contact.removeClass("checked");
+			}
+			function toggleCheck($contact){
+				var $checkbox = $contact.find("input");
 				if($checkbox.attr("checked")==true){
 					$contact.addClass("checked");
 				}else{
 					$contact.removeClass("checked");
 				}
-				
+			}
+		},
+		getCheckedContactIds:function(){
+			var contactIds = [];
+			this.$element.find(".contact.checked").each(function(){
+				var $contact = $(this);
+				var id = $contact.attr("data-obj_id");
+				contactIds.push(id);
 			});
+			return contactIds;
 		}
 	});
 
@@ -92,7 +135,7 @@ if(data && data.groupId){
 	<div>
 		<div id="contacts-content">
 			<div class="header">
-				<div>Select: All , None</div>
+				<div>Select: <a id="all">All</a> , <a id="none">None</a></div>
 			</div>
 		{{each contacts}}
 			<div class="contact" data-obj_type="contact" data-obj_id="${id}" >

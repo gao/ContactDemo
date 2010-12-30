@@ -11,7 +11,13 @@ body{
 	font-family: Arial;	
 	margin: 30px;
 }
-
+a{
+	color:rgba(0,101,204,1);
+	cursor:pointer;
+}
+a:hover{
+	text-decoration:underline;
+}
 /*-- button --*/
 .button{
 	-webkit-user-select:none;

@@ -8,22 +8,25 @@
 		},
 		{
 		build: function(data){
-			var contact = {};
-			if(data && data.id){
-				var contactId  = data.id;
-				contact = snow.dm.get("contact",contactId);
+			var contacts = [];
+			if(data && data.ids){
+				for(var i = 0;i < data.ids.length; i++){
+					var contactId  = data.ids[i];
+					contact = snow.dm.get("contact",contactId);
+					contacts.push(contact);
+				}
 			}
-			var $e = $("#tmpl-contactInfo").tmpl(contact);
+			var $e = $("#tmpl-contactInfo").tmpl({contacts:contacts});
 			return $e;
 		},
 		postDisplay:function(){
 			var thisComponent = this;
 			var $element = this.$element;
-			var id = $element.find(".main-content .contactInfo[data-obj_id]").attr("data-obj_id");
-			$element.find(".btnEdit").click(function(){
+			var id = $element.find(".main-content .contact[data-obj_id]").attr("data-obj_id");
+			$element.find(".btnEdit:not(.disable)").click(function(){
 				snow.ui.display("contactForm",{id:id});
 			});
-			$element.find(".btnDeleteContact").click(function(){
+			$element.find(".btnDeleteContact:not(.disable)").click(function(){
 				deleteContact(id);
 				snow.ui.display("contactInfo");
 				snow.ui.display("contact");
@@ -42,18 +45,23 @@
 <script id="tmpl-contactInfo" type="text/html">
 	<div class="main">
 		<div class="main-header">
-			<span class="button btnEdit"><span class="ico icoEdit"></span><span class="text">Edit</span></span>
+			<span class="button btnEdit {{if contacts.length!=1}}disable{{/if}}"><span class="ico icoEdit"></span><span class="text">Edit</span></span>
 			<span class="button btnGroup disable"><span class="ico icoGroup"></span><span class="text">Group</span><span class="ico icoDown"></span></span>
-			<span class="button btnDeleteContact del"><span class="ico icoDel"></span><span class="text">Delete Contact</span></span>
+			<span class="button btnDeleteContact {{if contacts.length!=1}}disable{{/if}} del"><span class="ico icoDel"></span><span class="text">Delete Contact</span></span>
 		</div>
 		<div class="main-content">
-			<div class="contactInfo" data-obj_id="${id}">
-				<p class="name">${name}</p>
-				<p class="email">
-					{{each emails}}
-						${this}
-					{{/each}}
-				</p>
+			<div id="contact-info">
+				<h2>${contacts.length} contact(s) selected</h2>
+				{{each contacts}}
+					<div class="item contact" data-obj_id="${id}">
+						<p class="name">${name}</p>
+						<p class="email">
+							{{each emails}}
+								${this}
+							{{/each}}
+						</p>
+					</div>
+				{{/each}}
 			</div>
 		</div>
 	</div>
