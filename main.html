@@ -5,6 +5,7 @@
         <title>Contact App Demo</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 		<link rel="stylesheet" type="text/css" href="css/dialog.css" />
+		<link rel="stylesheet" type="text/css" href="css/ico.css" />
 		<link rel="stylesheet" type="text/css" href="css/form.css" />
 		<link rel="stylesheet" type="text/css" href="css/mainScreen.css" />
 		<link rel="stylesheet" type="text/css" href="css/contact.css" />
@@ -34,18 +35,21 @@
     <body>
     	<div>
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
-	        <h2>snow.ui contacts demo</h2>
+	        <h2 style="padding:5px 0 5px 0;">
+	        	snow.ui contacts demo
+				<div id="login" class="login" style="display:none;float:right">
+					<span class="button btnOk" onclick="login();"><span class="text">Login</span></span>
+				</div>
+	
+				<div id="logout" class="logout" style="display:none;float:right">
+					<span class="button btnOk" onclick="logout();"><span class="text">Logout</span></span>
+				</div>
+			</h2>
+	
+				<div id="container">
+				</div>	
 			
-			<div id="login" class="login" style="display:none;">
-				<button onclick="login();">Login</button>
-			</div>
-
-			<div id="logout" class="logout" style="display:none;">
-				<button onclick="logout();">Logout</button>
-			</div>
-
-			<div id="container">
-			</div>	
+			
 		</div> 
 
 		<script type="text/javascript">

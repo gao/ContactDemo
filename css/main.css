@@ -5,10 +5,6 @@
 	font-weight: normal;
 	cursor: default;
 }
-@font-face {
-  font-family: Chalkduster;
-  src: url(Chalkduster.ttf);
-}
 
 body{
 	background: #ffffff;
@@ -16,43 +12,40 @@ body{
 	margin: 30px;
 }
 
-
-			
-			
-.del{
-	font-family: courier;
-	font-size: 14px;
-	float: right;
-	cursor: pointer;
-	color:blue;
-}
-
-.edit{
-	cursor: pointer;
-	color:blue;
-}
-
-button{
-	padding: 5px 7px;
+/*-- button --*/
+.button{
+	-webkit-user-select:none;
+	padding: 2px 0px 2px 0px;
+	margin:0 0 0 8px;
 	font-size: 13px;
 	cursor: pointer;
+	display:inline-block;
+	border:1px solid rgba(204,204,204,1);
+	background-color:rgba(249,249,249,1);
 }
-/* -- /main --*/
+.button:hover{
+	border:1px solid rgba(0,101,204,1);
+}
+.button *{
+	cursor: pointer;
+}
+.button.disable{
+	opacity:.6;
+	cursor:default;
+	border:1px solid rgba(204,204,204,1);
+}
+.button.disable *{
+	cursor:default;
+}
+.button .text{
+	margin: 0 3px 0 3px;
+	padding:2px 0 0 0;
+	height: 20px;
+	display: block;
+	float:left;
+}
+/*-- /button --*/
 
-.div-lblVal{
-    margin: 10px 0 10px 0;
-}
-
-.div-lbl{
-    float: left;
-    width: 110px;
-    display: block;
-}
-
-.div-val{
-    margin: 0 0 0 110px;
-    display: block;
-}
 
 
 /*-- panel --*/
@@ -66,3 +59,4 @@ button{
 	overflow-x:hidden;
 }
 /*-- /panel --*/
+/* -- /main --*/
