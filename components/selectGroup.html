@@ -1,0 +1,108 @@
+<!-- selectGroup Component -->
+<script type="text/javascript">
+
+	snow.ui.registerComponent("selectGroup",
+		{
+			parent: "body"
+		},
+		{
+		build: function(data){
+			var contactIds = [];
+			var groups = snow.dm.find("group");
+			var groupContacts = snow.dm.find("groupcontact");
+			var contacts = snow.dm.find("contact");
+			var additoryGroups = [];
+			var removeableGroups = [];
+			var left = 0;
+			var top = 0;
+			if(data){
+				contactIds = data.contactIds;
+				left = data.left;
+				top = data.top;
+				var removeableGroupIds = [];
+				/* -- push to removeableGroupIds -- */
+				for(var i = 0;i < groupContacts.length;i++){
+					for(var j = 0;j<contactIds.length;j++){
+						if(groupContacts[i].contactId == contactIds[j]){
+							var exist = false;
+							for(var k = 0 ;k<removeableGroupIds.length;k++){
+								if(removeableGroupIds[k]==groupContacts[i].groupId){
+									exist = true;
+								}
+							}
+							if(!exist){
+								removeableGroupIds.push(groupContact.groupId);
+							}
+						}
+					}
+					
+				}
+				/* -- /push to removeableGroupIds -- */
+				/* -- push to additoryGroupIds -- */
+				for(var i = 0;i < groups.length;i++){
+					var exist = 0;
+					for(var j = 0;j<groupContacts.length;j++){
+						if(groupContacts[j].groupId == groups[i].id){
+							exist++;
+						}
+					}
+					snow.log.info(exist);
+					if(exist < contacts.length){
+						additoryGroups.push(groups[i]);
+					}
+				}
+				/* -- /push to additoryGroupIds -- */
+				snow.log.info(removeableGroupIds);
+				//retrieve Group
+				for(var i = 0;i<removeableGroupIds.length;i++){
+					removeableGroups.push(snow.dm.find("group",removeableGroupIds[i]));
+				}
+				
+			}
+			var $e = $("#tmpl-selectGroup").tmpl({additoryGroups:additoryGroups,removeableGroups:removeableGroups,left:left,top:top});
+			$("body").append("<div id='selectGroupScreener' class='divScreener'></div>");
+			return $e;
+		},
+		postDisplay:function(){
+			var component = this;
+			var $element = this.$element;
+			$("#selectGroupScreener").click(function(){
+				component.close();
+			});
+			$element.find(".add .group").bind("click",function(){
+				component.close();
+			});
+			$element.find(".remove .group").bind("click",function(){
+				component.close();
+			});
+		},
+		close:function(){
+			this.$element.remove();
+			$("#selectGroupScreener").remove();
+		}
+	});
+
+</script>
+<!--  /selectGroup Component -->
+
+<script id="tmpl-selectGroup" type="text/html">
+	<div class="selectGroup" style="left:${left}px;top:${top}px">
+		{{if additoryGroups.length>0}}
+			<div class="add">
+				<div class="title">Add To Group ...</div>
+				{{each additoryGroups}}
+				<div class="group" data-obj_id="${id}">${name}</div>
+				{{/each}}
+			</div>
+		{{/if}}
+		{{if removeableGroups.length>0}}
+			<div class="remove">
+				<div class="title">Remove From Group ..</div>
+				{{each removeableGroups}}
+				<div class="group" data-obj_id="${id}">${name}</div>
+				{{/each}}
+			</div>
+		{{/if}}
+	</div>
+</script>
+

@@ -1,0 +1,21 @@
+.selectGroup{
+	position:absolute;
+	left:0px;
+	top:0px;
+	border:1px solid rgba(204,204,204,1);
+	background-color:rgba(249,249,249,1);
+	padding:3px 0 3px 0;
+	font-size:12px;
+	z-index:7;
+}
+.selectGroup .title{
+	font-weight:bold;
+	font-style:italic;
+	padding:2px 10px 2px 3px;
+}
+.selectGroup .group{
+	padding:2px 10px 2px 20px;
+}
+.selectGroup .group:hover{
+	background-color:rgba(227,233,255,1);
+}
