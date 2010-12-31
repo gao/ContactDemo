@@ -9,8 +9,6 @@
 		build: function(data){
 			var contactIds = [];
 			var groups = snow.dm.find("group");
-			var groupContacts = snow.dm.find("groupcontact");
-			var contacts = snow.dm.find("contact");
 			var additoryGroups = [];
 			var removeableGroups = [];
 			var left = 0;
@@ -21,41 +19,51 @@
 				top = data.top;
 				var removeableGroupIds = [];
 				/* -- push to removeableGroupIds -- */
-				for(var i = 0;i < groupContacts.length;i++){
-					for(var j = 0;j<contactIds.length;j++){
-						if(groupContacts[i].contactId == contactIds[j]){
+				for(var i = 0; i<contactIds.length;i++){
+					var contact = snow.dm.get("contact",contactIds[i]);
+					if(contact.groupIds){
+						for(var j = 0 ;j<contact.groupIds.length;j++){
 							var exist = false;
-							for(var k = 0 ;k<removeableGroupIds.length;k++){
-								if(removeableGroupIds[k]==groupContacts[i].groupId){
+							for(var k = 0;k<removeableGroupIds.length;k++){
+								if(contact.groupIds[j]==removeableGroupIds[k]){
 									exist = true;
+									break;
 								}
 							}
 							if(!exist){
-								removeableGroupIds.push(groupContact.groupId);
+								removeableGroupIds.push(contact.groupIds[j]);
 							}
 						}
 					}
-					
 				}
 				/* -- /push to removeableGroupIds -- */
 				/* -- push to additoryGroupIds -- */
 				for(var i = 0;i < groups.length;i++){
-					var exist = 0;
-					for(var j = 0;j<groupContacts.length;j++){
-						if(groupContacts[j].groupId == groups[i].id){
-							exist++;
+					var allHasGroup = true;
+					for(var j = 0;j<contactIds.length;j++){
+						var contact = snow.dm.get("contact",contactIds[j]);
+						var exist = false;
+						if(contact.groupIds){
+							for(var k = 0;k<contact.groupIds.length;k++){
+								if(contact.groupIds[k]==groups[i].id){
+									exist = true;
+									break;
+								}
+							}
+						}
+						if(!exist){
+							allHasGroup = false;
+							break;
 						}
 					}
-					snow.log.info(exist);
-					if(exist < contacts.length){
+					if(!allHasGroup){
 						additoryGroups.push(groups[i]);
 					}
 				}
 				/* -- /push to additoryGroupIds -- */
-				snow.log.info(removeableGroupIds);
 				//retrieve Group
 				for(var i = 0;i<removeableGroupIds.length;i++){
-					removeableGroups.push(snow.dm.find("group",removeableGroupIds[i]));
+					removeableGroups.push(snow.dm.get("group",removeableGroupIds[i]));
 				}
 				
 			}
@@ -63,18 +71,53 @@
 			$("body").append("<div id='selectGroupScreener' class='divScreener'></div>");
 			return $e;
 		},
-		postDisplay:function(){
+		postDisplay:function(data){
 			var component = this;
 			var $element = this.$element;
 			$("#selectGroupScreener").click(function(){
 				component.close();
 			});
 			$element.find(".add .group").bind("click",function(){
+				var $group = $(this);
+				var groupId = $group.attr("data-obj_id");
+				addGroupId(data.contactIds,groupId);
 				component.close();
 			});
 			$element.find(".remove .group").bind("click",function(){
+				var $group = $(this);
+				var groupId = $group.attr("data-obj_id");
+				removeGroupId(data.contactIds,groupId);
 				component.close();
 			});
+			
+			//Helper functions
+			function addGroupId(contactIds,groupId){
+				for (var i = 0; i < contactIds.length; i++) {
+					var contact = snow.dm.get("contact", contactIds[i]);
+					alert(JSON.stringify(contact));
+					if(!contact.groupIds){
+						contact.groupIds = [];
+					}
+					contact.groupIds.push(groupId);
+					snow.dm.save("contact",contact);
+				}
+			}
+			
+			function removeGroupId(contactIds,groupId){
+				for (var i = 0; i < contactIds.length; i++) {
+					var contact = snow.dm.get("contact", contactIds[i]);
+					if(!contact.groupIds){
+						contact.groupIds = [];
+					}
+					for(var j=0;j<contact.groupIds.length;j++){
+						if(contact.groupIds[j] = groupId){
+							contact.groupIds.pop(groupId);
+							break;
+						}
+					}
+					snow.dm.save("contact",contact);
+				}
+			}
 		},
 		close:function(){
 			this.$element.remove();
