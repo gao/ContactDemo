@@ -94,7 +94,7 @@
 			function addGroupId(contactIds,groupId){
 				for (var i = 0; i < contactIds.length; i++) {
 					var contact = snow.dm.get("contact", contactIds[i]);
-					alert(JSON.stringify(contact));
+					//alert(JSON.stringify(contact));
 					if(!contact.groupIds){
 						contact.groupIds = [];
 					}
