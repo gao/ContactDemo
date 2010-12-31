@@ -78,12 +78,12 @@
 						chrome.extension.getBackgroundPage().getData(function(){
 							chrome.extension.getViews()[1].snow.ui.display('mainScreen');
 						});
-						//alert(localStorage.getItem("contacts"));
 					}else{
 						$("#login").show();
 						$("#logout").hide();
 					}
 				}
+				
 				snow.ui.display('mainScreen');
 
 			});
