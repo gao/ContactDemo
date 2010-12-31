@@ -40,7 +40,7 @@
 			var a = [];
 			var groupContacts = getGroupContacts();
 			var groups = getGroups();
-				
+			contactStore = getContacts();
 			for (var i = 0; i < contactStore.length; i++){
 				var t = contactStore[i];
 				var contactGroups = [];

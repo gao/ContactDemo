@@ -21,6 +21,7 @@
 				
 		GoogleGroupDao.prototype.find = function(objectType,opts){
 			var a = [];
+			groups = getGroups();
 			for (var i = 0; i < groups.length; i++){
 				var u = groups[i];
 				a.push($.extend({},u)); 

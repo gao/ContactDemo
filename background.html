@@ -21,8 +21,9 @@
 
       var contacts = null;
 	  var groups = null;
-
-      function onContacts(text, xhr) {
+	  var hasGetContactsData = false;
+	  var hasGetGroupsData = false;
+      function onContacts(text, xhr,callback) {
         contacts = [];
         var data = JSON.parse(text);
         for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
@@ -43,12 +44,19 @@
             contact['name'] = contact['emails'][0] || "<Unknown>";
           }
           contacts.push(contact);
+		  
 		  localStorage.contacts = JSON.stringify(contacts);
+		  }
+		  hasGetContactsData = true;
+		  if(hasGetContactsData && hasGetGroupsData){
+		  	if(callback){
+				callback();
+			}
         }
 
       };
 
-	  function onGroups(text, xhr) {
+	  function onGroups(text, xhr,callback) {
         groups = [];
         var data = JSON.parse(text);
         for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
@@ -60,18 +68,27 @@
           groups.push(group);
 		  localStorage.groups = JSON.stringify(groups);
         }
+		  hasGetGroupsData = true;
+		  if(hasGetContactsData && hasGetGroupsData){
+		  	if(callback){
+				callback();
+			}
+		  }
       };
 
-	  function getData(){
-		getContacts();
-		getGroups();
+	  function getData(callback){
+		getContacts(callback);
+		getGroups(callback);
 	  }
 
-	  function getGroups() {
+	  function getGroups(callback) {
+	  	var callbackData = function(text,xhr){
+			onGroups(text,xhr,callback);
+		}
         oauth.authorize(function() {
           console.log("on authorize");
           var url = "http://www.google.com/m8/feeds/groups/default/full";
-          oauth.sendSignedRequest(url, onGroups, {
+          oauth.sendSignedRequest(url, callbackData, {
             'parameters' : {
               'alt' : 'json',
               'max-results' : 100
@@ -80,11 +97,14 @@
         });
       };
 
-      function getContacts() {
+      function getContacts(callback) {
+	  	var callbackData = function(text,xhr){
+			onContacts(text,xhr,callback);
+		}
         oauth.authorize(function() {
           console.log("on authorize");
           var url = "http://www.google.com/m8/feeds/contacts/default/full";
-          oauth.sendSignedRequest(url, onContacts, {
+          oauth.sendSignedRequest(url, callbackData, {
             'parameters' : {
               'alt' : 'json',
               'max-results' : 100
@@ -93,10 +113,13 @@
         });
       };
 
-	  function getToken() {
+	  function getToken(callback) {
+	  	var callbackData = function(){
+			getData(callback);
+		}
         oauth.authorize(function() {
           var url = "http://www.google.com/m8/feeds";
-          oauth.sendSignedRequest(url, getData, {});
+          oauth.sendSignedRequest(url, callbackData, {});
         });
       };
 

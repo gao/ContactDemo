@@ -55,11 +55,14 @@
 
 		<script type="text/javascript">
 			function login() {
-				chrome.extension.getBackgroundPage().getToken();
+				chrome.extension.getBackgroundPage().getToken(function(){
+					chrome.extension.getViews()[1].snow.ui.display('mainScreen');
+				});
 			};
 			function logout() {
 				chrome.extension.getBackgroundPage().logout();
 			};
+			
 		</script>
 		<script>
 			$(document).ready(function(){
@@ -72,14 +75,15 @@
 					if(hasToken){
 						$("#logout").show();
 						$("#login").hide();
-						chrome.extension.getBackgroundPage().getData();
+						chrome.extension.getBackgroundPage().getData(function(){
+							chrome.extension.getViews()[1].snow.ui.display('mainScreen');
+						});
 						//alert(localStorage.getItem("contacts"));
 					}else{
 						$("#login").show();
 						$("#logout").hide();
 					}
 				}
-				
 				snow.ui.display('mainScreen');
 
 			});
