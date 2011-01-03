@@ -30,6 +30,17 @@
 				snow.ui.display("contact");
 			});
 			
+			$element.find(".addEmail").click(function(){
+				var $email = $("#tmpl-email").tmpl({showDel:true});
+				var $button = $(this);
+				$button.closest(".formItem").append($email);
+			});
+			
+			$element.delegate(".delEmail","click",function(){
+				var $button = $(this);
+				$button.closest(".formItem-value").remove();
+			});
+			
 			// helper functions
 			function updateContact(){
 				var contact = {};
@@ -37,6 +48,14 @@
 				contact.name = $element.find("input[name='name']").val();
 				contact.address = $element.find("input[name='address']").val();
 				contact.phone = $element.find("input[name='phone']").val();
+				var emails = [];
+				$element.find("input[name='emails']").each(function(){
+					var value = $(this).val();
+					if(value){
+						emails.push(value);
+					}
+				});
+				contact.emails = emails;
 				snow.dm.save("contact",contact);
 				return contact;
 			}
@@ -63,6 +82,20 @@
 					</div>
 				</div>
 				<div class="formItem">
+					<div class="formItem-label">Email:&nbsp;&nbsp;(<a class="addEmail">Add</a>)</div>
+					{{if typeof emails !='undefined' && emails.length>0}}
+						{{each emails}}
+							{{if $index == 0 }}
+								{{tmpl({value:this}) "#tmpl-email"}}
+							{{else}}
+								{{tmpl({showDel:true,value:this}) "#tmpl-email"}}
+							{{/if}}
+						{{/each}}
+					{{else}}
+						{{tmpl() "#tmpl-email"}}
+					{{/if}}
+				</div>
+				<div class="formItem">
 					<div class="formItem-label">Address:</div>
 					<div class="formItem-value">
 						<input name="address" autocomplete="off" type="text" value="${ address }" />
@@ -76,6 +109,14 @@
 				</div>
 		</form>
 		</div>
+	</div>
+</script>
+<script id="tmpl-email" type="text/html">
+	<div class="formItem-value">
+		<input name="emails" autocomplete="off" type="text" value="{{if value}}${value}{{/if}}" />
+		{{if showDel}}
+			&nbsp;&nbsp;<a class="delEmail">Del</a>
+		{{/if}}
 	</div>
 </script>
 <!-- /templates -->
