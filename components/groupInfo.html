@@ -12,6 +12,9 @@
 			if(data && data.id){
 				var groupId  = data.id;
 				group = snow.dm.get("group",groupId);
+			}else{
+				group.disableEdit = true;
+				group.disableDel = true;
 			}
 			var $e = $("#tmpl-groupInfo").tmpl(group);
 			return $e;
@@ -20,10 +23,10 @@
 			var thisComponent = this;
 			var $element = this.$element;
 			var id = $element.find(".main-content .groupInfo[data-obj_id]").attr("data-obj_id");
-			$element.find(".btnEdit").click(function(){
+			$element.find(".btnEdit:not(.disable)").click(function(){
 				snow.ui.display("groupForm",{id:id});
 			});
-			$element.find(".btnDeleteGroup").click(function(){
+			$element.find(".btnDeleteGroup:not(.disable)").click(function(){
 				deleteGroup(id);
 				snow.ui.display("groupInfo");
 				snow.ui.display("group");
@@ -48,9 +51,9 @@
 <script id="tmpl-groupInfo" type="text/html">
 	<div class="main">
 		<div class="main-header">
-			<span class="button btnEdit"><span class="ico icoEdit"></span><span class="text">Edit</span></span>
+			<span class="button btnEdit {{if disableEdit}}disable{{/if}}"><span class="ico icoEdit"></span><span class="text">Edit</span></span>
 			<span class="button btnGroup disable"><span class="ico icoGroup"></span><span class="text">Group</span><span class="ico icoDown"></span></span>
-			<span class="button btnDeleteGroup del"><span class="ico icoDel"></span><span class="text">Delete Group</span></span>
+			<span class="button btnDeleteGroup {{if disableDel}}disable{{/if}} del"><span class="ico icoDel"></span><span class="text">Delete Group</span></span>
 		</div>
 		<div class="main-content">
 			<div class="groupInfo" data-obj_id="${id}">
