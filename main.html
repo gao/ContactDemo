@@ -54,12 +54,27 @@
 
 		<script type="text/javascript">
 			function login() {
-				chrome.extension.getBackgroundPage().getToken(function(){
-					chrome.extension.getViews()[1].snow.ui.display('mainScreen');
-				});
+				if (dataProviderType == "googleData") {
+					chrome.extension.getBackgroundPage().getToken(function(){
+						chrome.extension.getViews()[1].snow.ui.display('mainScreen');
+						$("#logout").show();
+						$("#login").hide();
+					});
+				}else if (dataProviderType == "mockData") {
+					localStorage.setItem("oauth_tokenMock","mockToken");
+					$("#logout").show();
+					$("#login").hide();
+				}
 			};
 			function logout() {
-				chrome.extension.getBackgroundPage().logout();
+				if (dataProviderType == "googleData") {
+					chrome.extension.getBackgroundPage().logout();
+				}
+				else if (dataProviderType == "mockData") {
+					localStorage.removeItem("oauth_tokenMock");
+				}
+				$("#login").show();
+				$("#logout").hide();
 			};
 			
 		</script>
@@ -67,6 +82,13 @@
 			$(document).ready(function(){
 
 				if(dataProviderType == "mockData"){
+					if(localStorage.getItem("oauth_tokenMock")){
+						$("#logout").show();
+						$("#login").hide();
+					}else{
+						$("#login").show();
+						$("#logout").hide();
+					}
 					localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
 					localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
 				}else if(dataProviderType == "googleData"){
