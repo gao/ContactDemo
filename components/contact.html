@@ -93,23 +93,6 @@
 		}
 	});
 
-	
-	function deleteContact(id){
-		snow.dm.remove("contact",id);
-		var groupContacts = snow.dm.find("groupcontact",{});
-		for(var i=0;i<groupContacts.length;i++){
-			var o = groupContacts[i];
-			if(id == o.contactId){
-				snow.dm.remove("groupcontact",o.id);
-			}
-		}
-		snow.ui.display("contact");
-	}
-
-	function deleteGroupContact(id){
-		snow.dm.remove("groupcontact",id);
-		snow.ui.display("contact");
-	}
 </script>
 <!--  /Simple contactsComponent -->
 
