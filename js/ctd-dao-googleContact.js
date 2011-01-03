@@ -38,27 +38,25 @@
 
 		GoogleContactDao.prototype.find = function(objectType,opts){
 			var a = [];
-			var groupContacts = getGroupContacts();
-			var groups = getGroups();
 			contactStore = getContacts();
-			for (var i = 0; i < contactStore.length; i++){
-				var t = contactStore[i];
-				var contactGroups = [];
-				for (var j = 0; j < groupContacts.length; j++){
-					var u = groupContacts[j];
-					if(u.contactId == t.id){
-						for(var k = 0; k<groups.length;k++){
-							var s = groups[k];
-							s.groupContactId = u.id;
-							if(u.groupId == s.id){
-								contactGroups.push($.extend({},s)); 
+			if(opts && opts.groupId){
+				for(var i = 0; i<contactStore.length;i++){
+					var contact = contactStore[i];
+					if(contact.groupIds){
+						var exist = false;
+						for(var j = 0 ;j<contact.groupIds.length;j++){
+							if(contact.groupIds[j] == opts.groupId){
+								exist = true;
+								break;
 							}
 						}
+						if(exist){
+							a.push(contact);
+						}
 					}
-				}
-				t.groups = contactGroups;
-
-				a.push($.extend({},t)); 
+				}	
+			}else{
+				a = contactStore;
 			}
 				
 			return a;

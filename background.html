@@ -31,7 +31,8 @@
 					var contact = {
 						'name' : entry['title']['$t'],
 						'id' : entry['id']['$t'],
-						'emails' : []
+						'emails' : [],
+						'groupIds' : []
 					};
 
 					if (entry['gd$email']) {
@@ -44,6 +45,13 @@
 					if (!contact['name']) {
 						contact['name'] = contact['emails'][0] || "<Unknown>";
 					}
+					
+					if (entry['gContact$groupMembershipInfo']) {
+						var groupIds = entry['gContact$groupMembershipInfo'];
+						for (var m = 0, groupId; groupId = groupIds[m]; m++) {
+							contact['groupIds'].push(groupId['href']);
+						}
+					 }
 
 					contacts.push(contact);
 		  

@@ -8,29 +8,13 @@
 		},
 		{
 		build: function(data){
-			var contacts = snow.dm.find("contact",{});
-
-			/*
-if(data && data.groupId){
-				var groupContacts = snow.dm.find("groupcontact",{});
-				var a = [];
-				for(var i = 0; i<groupContacts.length;i++){
-					if(groupContacts[i].groupId == data.groupId){
-						a.push(groupContacts[i]);
-					}
-				}
-				var b =[];
-				for(var i=0; i<a.length;i++){
-					for(var j = 0; j<contacts.length;j++){
-						if(a[i].contactId == contacts[j].id){
-							b.push(contacts[j]);
-						}
-					}
-				}
-				contacts = b;
+			var contacts = null;
+			if (data && data.groupId) {
+				contacts = snow.dm.find("contact",{groupId:data.groupId});
+			}else{
+				contacts = snow.dm.find("contact");
 			}
-*/
-			
+
 			var $e = null;
 			$e = $("#tmpl-contactList").tmpl({"contacts":contacts});
 		
