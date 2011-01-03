@@ -9,13 +9,38 @@
 		{
 		build: function(data){
 			var group = {};
-			if(data && data.id){
-				var groupId  = data.id;
-				group = snow.dm.get("group",groupId);
+			var contacts = snow.dm.find("contact");
+			var contactsNumber = 0;
+			if(data){
+				if (data.id == "ALL") {
+					group.name = "All Contacts"
+					contactsNumber = contacts.length;
+					group.disableEdit = true;
+					group.disableDel = true;
+				}else if(data.id == "RECENT"){
+					group.name = "Recent Contacts"
+					contactsNumber = 0;
+					group.disableEdit = true;
+					group.disableDel = true;
+				}else{
+					var groupId  = data.id;
+					group = snow.dm.get("group",groupId);
+					for(var j = 0; j<contacts.length; j++){
+						var contact = contacts[j];
+						if(contact.groupIds){
+							for(var k = 0 ; k<contact.groupIds.length;k++){
+								if(contact.groupIds[k] == group.id){
+									contactsNumber++;
+								}
+							}
+						}
+					}
+				}
 			}else{
 				group.disableEdit = true;
 				group.disableDel = true;
 			}
+			group.contactsNumber = contactsNumber;
 			var $e = $("#tmpl-groupInfo").tmpl(group);
 			return $e;
 		},
@@ -58,6 +83,7 @@
 		<div class="main-content">
 			<div class="groupInfo" data-obj_id="${id}">
 				<p class="name" >${name}</p>
+				<p class="number" >${contactsNumber} contact(s)</p>
 			</div>
 		</div>
 	</div>

@@ -9,10 +9,26 @@
 		{
 		build: function(data){
 			var groups = snow.dm.find("group",{});
-			var $group = null;
-			$group = $("#tmpl-groupList").tmpl({"groups":groups});
+			var contacts = snow.dm.find("contact",{});
+			for(var i = 0; i<groups.length; i++){
+				var group = groups[i];
+				var contactsNumber = 0;
+				for(var j = 0; j<contacts.length; j++){
+					var contact = contacts[j];
+					if(contact.groupIds){
+						for(var k = 0 ; k<contact.groupIds.length;k++){
+							if(contact.groupIds[k] == group.id){
+								contactsNumber++;
+							}
+						}
+					}
+				}
+				group.contactsNumber = contactsNumber;
+			}
+			
+			var $e = $("#tmpl-groupList").tmpl({"groups":groups,contacts:contacts});
 		
-			return $group
+			return $e
 		},
 		postDisplay:function(){
 			var thisComponent = this;
@@ -40,18 +56,18 @@
 <script id="tmpl-groupList" type="text/html">
 	<div>
 		<div id="groups-content">
-				<div class="group all-group" data-obj_type="group">
-					<div><a class="edit" onclick="snow.ui.display('contact')">All Groups</a></div>
+				<div class="group all-group" data-obj_type="group" data-obj_id="ALL">
+					<div><div class="name">(All)</div><div class="number">${contacts.length}</div></div>
 				</div>
 				<div class="line" />
 				{{each groups}}
 					<div class="group" data-obj_type="group" data-obj_id="${id}">
-						<div><span class="name">${name}</span></div>
+						<div><div class="name">${name}</div><div class="number">${contactsNumber}</div></div>
 					</div>	
 				{{/each groups}}
 				<div class="line" />
-				<div class="group recent-group" data-obj_type="group">
-					<div><a class="edit" onclick="snow.ui.display('contact')">Recent Contacts</a></div>
+				<div class="group recent-group" data-obj_type="group" data-obj_id="RECENT">
+					<div><div class="name">(Recent Contacts)</div></div>
 				</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 #groups-content > div.group {
 	cursor:pointer;
+	height:22px;
 }
 #groups-content > div.group:hover {
 	background:rgba(227,233,255,1);
@@ -20,7 +21,14 @@
 #groups-content > div.group > div{
 	padding:5px 10px 5px 10px;
 }
-
+#groups-content > div.group  .name{
+	dislpay:block;
+	float:left;
+}
+#groups-content > div.group  .number{
+	dislpay:block;
+	float:right;
+}
 #groups-content > div.line {
 	height:1px;
 	margin:1px 5px 3px 5px;

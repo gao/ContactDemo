@@ -82,12 +82,14 @@
 				var groupId = $group.attr("data-obj_id");
 				addGroupId(data.contactIds,groupId);
 				component.close();
+				snow.ui.display("group");
 			});
 			$element.find(".remove .group").bind("click",function(){
 				var $group = $(this);
 				var groupId = $group.attr("data-obj_id");
 				removeGroupId(data.contactIds,groupId);
 				component.close();
+				snow.ui.display("group");
 			});
 			
 			//Helper functions
@@ -110,8 +112,8 @@
 						contact.groupIds = [];
 					}
 					for(var j=0;j<contact.groupIds.length;j++){
-						if(contact.groupIds[j] = groupId){
-							contact.groupIds.pop(groupId);
+						if(contact.groupIds[j] == groupId){
+							contact.groupIds.splice(j,1);
 							break;
 						}
 					}
