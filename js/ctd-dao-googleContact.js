@@ -13,23 +13,6 @@
 		GoogleContactDao.prototype.get = function(objectType,id){
 			var contact = getContactDataById(id);
 			if (contact){
-				var groupContacts = getGroupContacts();
-				var groups = getGroups();
-				var t = contact;
-				var contactGroups = [];
-				for (var j = 0; j < groupContacts.length; j++){
-					var u = groupContacts[j];
-					if(u.contactId == t.id){
-						for(var k = 0; k<groups.length;k++){
-							var s = groups[k];
-							s.groupContactId = u.id;
-							if(u.groupId == s.id){
-								contactGroups.push($.extend({},s)); 
-							}
-						}
-					}
-				}
-				contact.groups = contactGroups;
 				return $.extend({},contact);
 			}else{
 				return null;
@@ -120,25 +103,6 @@
 			return contacts;
 		}
 
-		function getGroupContacts(){
-			var groupContacts = localStorage.groupContacts;
-			if(groupContacts == null){
-				groupContacts = new Array();
-			}else{
-				groupContacts = JSON.parse(groupContacts);
-			}
-			return groupContacts;
-		}
-
-		function getGroups(){
-			var groups = localStorage.groups;
-			if(groups == null){
-				groups = new Array();
-			}else{
-				groups = JSON.parse(groups);
-			}
-			return groups;
-		}
 		// ------ /Privates ------- //
 						
 		return GoogleContactDao;
