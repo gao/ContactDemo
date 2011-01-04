@@ -9,7 +9,7 @@
 		{
 		build: function(data){
 			var contacts = null;
-			if (data && data.groupId) {
+			if (data && data.groupId && data.groupId != "ALL") {
 				contacts = snow.dm.find("contact",{groupId:data.groupId});
 			}else{
 				contacts = snow.dm.find("contact");
