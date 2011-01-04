@@ -34,15 +34,8 @@
     <body>
     	<div>
 			<img src="image.jpg" style="position:absolute; top: -1000px;">
-	        <h2 style="padding:5px 0 5px 0;">
-	        	snow.ui contacts demo
-				<div id="login" class="login" style="display:none;float:right">
-					<span class="button btnOk" onclick="login();"><span class="text">Login</span></span>
-				</div>
-	
-				<div id="logout" class="logout" style="display:none;float:right">
-					<span class="button btnOk" onclick="logout();"><span class="text">Logout</span></span>
-				</div>
+	        <h2 style="text-align:center;margin:5px 0px 5px 0px;">
+	        	SnowUI Contacts Demo
 			</h2>
 	
 				<div id="container">
@@ -51,61 +44,9 @@
 			
 		</div> 
 
-		<script type="text/javascript">
-			function login() {
-				if (dataProviderType == "googleData") {
-					chrome.extension.getBackgroundPage().getToken(function(){
-						chrome.extension.getViews()[1].snow.ui.display('mainScreen');
-						$("#logout").show();
-						$("#login").hide();
-					});
-				}else if (dataProviderType == "mockData") {
-					localStorage.setItem("oauth_tokenMock","mockToken");
-					$("#logout").show();
-					$("#login").hide();
-				}
-			};
-			function logout() {
-				if (dataProviderType == "googleData") {
-					chrome.extension.getBackgroundPage().logout();
-				}
-				else if (dataProviderType == "mockData") {
-					localStorage.removeItem("oauth_tokenMock");
-				}
-				$("#login").show();
-				$("#logout").hide();
-			};
-			
-		</script>
 		<script>
 			$(document).ready(function(){
-
-				if(dataProviderType == "mockData"){
-					if(localStorage.getItem("oauth_tokenMock")){
-						$("#logout").show();
-						$("#login").hide();
-					}else{
-						$("#login").show();
-						$("#logout").hide();
-					}
-					localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
-					localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
-				}else if(dataProviderType == "googleData"){
-					var hasToken = chrome.extension.getBackgroundPage().oauth.hasToken();
-					if(hasToken){
-						$("#logout").show();
-						$("#login").hide();
-						chrome.extension.getBackgroundPage().getData(function(){
-							chrome.extension.getViews()[1].snow.ui.display('mainScreen');
-						});
-					}else{
-						$("#login").show();
-						$("#logout").hide();
-					}
-				}
-				
 				snow.ui.display('mainScreen');
-
 			});
 		</script>
     </body>

@@ -26,6 +26,68 @@
 			$element.find(".btnCreateContact").click(function(){
 				snow.ui.display("contactForm");
 			});
+			
+			var $loginButton = $element.find(".btnLog.btnLogin");
+			var $logoffButton = $element.find(".btnLog.btnLogoff");
+			$loginButton.show();
+			$logoffButton.show();
+			$loginButton.click(function(){
+				if (dataProviderType == "googleData") {
+					chrome.extension.getBackgroundPage().getToken(function(){
+						chrome.extension.getViews()[1].snow.ui.display("group");
+						chrome.extension.getViews()[1].snow.ui.display("contact");
+						chrome.extension.getViews()[1].snow.ui.display("welcome");
+						$logoffButton.show();
+						$loginButton.hide();
+					});
+				}else if (dataProviderType == "mockData") {
+					localStorage.setItem("oauth_tokenMock","mockToken");
+					$logoffButton.show();
+					$loginButton.hide();
+				}
+			});
+			
+			$logoffButton.click(function(){
+				if (dataProviderType == "googleData") {
+					chrome.extension.getBackgroundPage().logout();
+				}
+				else if (dataProviderType == "mockData") {
+					localStorage.removeItem("oauth_tokenMock");
+				}
+				$loginButton.show();
+				$logoffButton.hide();
+			});
+			
+			$loginButton.show();
+			$logoffButton.hide();
+			
+			// test which type to use
+			if(dataProviderType == "mockData"){
+				if(localStorage.getItem("oauth_tokenMock")){
+					$logoffButton.show();
+					$loginButton.hide();
+				}else{
+					$loginButton.show();
+					$logoffButton.hide();
+				}
+				localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
+				localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
+			}else if(dataProviderType == "googleData"){
+				var hasToken = chrome.extension.getBackgroundPage().oauth.hasToken();
+				if(hasToken){
+					$logoffButton.show();
+					$loginButton.hide();
+					chrome.extension.getBackgroundPage().getData(function(){
+						chrome.extension.getViews()[1].snow.ui.display("group");
+						chrome.extension.getViews()[1].snow.ui.display("contact");
+						chrome.extension.getViews()[1].snow.ui.display("welcome");
+					});
+				}else{
+					$loginButton.show();
+					$logoffButton.hide();
+				}
+			}
+			
 		}
 	});
 
@@ -37,6 +99,8 @@
 		<div class="top">
 			<span class="button btnCreateContact"><span class="ico icoAdd"></span><span class="ico icoContact"></span></span>
 			<span class="button btnCreateGroup"><span class="ico icoAdd"></span><span class="ico icoGroup"></span></span>
+			<span class="button btnLog btnLogin"><span class="text">Login</span></span>
+			<span class="button btnLog btnLogoff"><span class="text">Logoff</span></span>
 		</div>
 		<div class="center">
 			<div id="fstCol" class="panel"></div> 	

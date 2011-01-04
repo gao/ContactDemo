@@ -10,6 +10,10 @@
 	padding:3px 0 1px 0;
 	background:rgba(187,204,255,1);
 }
+.mainScreen > .top .btnLog{
+	float:right;
+	margin:0px 5px 0px 0px;
+}
 
 .mainScreen > .center{
 	height:456px;
