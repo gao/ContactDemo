@@ -11,7 +11,7 @@
 			var group = {};
 			var contacts = snow.dm.find("contact");
 			var contactsNumber = 0;
-			if(data){
+			if(data && data.id!=""){
 				if (data.id == "ALL") {
 					group.name = "All Contacts"
 					contactsNumber = contacts.length;
