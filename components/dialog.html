@@ -1,0 +1,63 @@
+<!-- dialog Component -->
+<script type="text/javascript">
+    
+    snow.ui.registerComponent("dialog", {
+        parent: "body"
+    }, {
+        build: function(data){
+            var $e = $("#tmpl-dialog").tmpl(data);
+			$("body").append("<div class='dialogScreener'></div>");
+            return $e;
+        },
+        postDisplay: function(data){
+			var thisComponent = this;
+
+			var $cancel = this.$element.find(".button.btnCancel")
+            $cancel.click(function(){
+				thisComponent.setAnswer(false);
+                thisComponent.close();
+            });
+			
+			var $ok = this.$element.find(".button.btnOk");
+            $ok.click(function(){
+                thisComponent.setAnswer(true);
+            });
+
+        },
+        close: function(){
+            this.$element.remove();
+            //remove the screener
+            $("body > .dialogScreener").remove();
+            $("body").unbind("keyup.dialog");
+        },
+		onAnswer: function(answerCallBack){
+            this._answerCallBack = answerCallBack;
+        },
+		onAnswerOk: function(answerOkCallBack){
+            this._answerOkCallBack = answerOkCallBack;
+        },
+		setAnswer: function(ok){
+			//always call
+			if (this._answerCallBack) {
+				this._answerCallBack();
+			}
+			//call if ok
+			if (this._answerOkCallBack && ok){
+				this._answerOkCallBack();
+			}
+            this.close();
+        }
+    });
+    
+</script>
+<!--  /dialog Component -->
+<script id="tmpl-dialog" type="text/html">
+	<div class="dialog">
+        <div class="dialog-header">${title}</div>
+        <div class="dialog-content">{{if prompt}} {{html prompt}} {{else}} Are you sure {{/if}}</div>
+        <div class="dialog-buttonbar">
+            <span class="button btnOk"><span class="text">{{if okLabel}} ${okLabel} {{else}} Ok {{/if}}</span></span>
+            <span class="button btnCancel"><span class="text">{{if cancelLabel}} ${cancelLabel} {{else}} Cancel {{/if}}</span></span>
+        </div>
+    </div>
+</script>

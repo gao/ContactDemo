@@ -13,6 +13,13 @@
 				for(var i = 0;i < data.ids.length; i++){
 					var contactId  = data.ids[i];
 					contact = snow.dm.get("contact",contactId);
+					contact.groups = [];
+					if(contact.groupIds){
+						for(var j=0;j<contact.groupIds.length;j++){
+							var group = snow.dm.get("group",contact.groupIds[j]);
+							contact.groups.push(group);
+						}
+					}
 					contacts.push(contact);
 				}
 			}
@@ -36,6 +43,31 @@
 				var left = $button.offset().left;
 				var top = $button.offset().top+28;
 				snow.ui.display("selectGroup",{left:left,top:top,contactIds:data.ids});
+			});
+			
+			$element.delegate(".group .groupDel","click",function(){
+				var $button = $(this);
+				var groupId = $button.closest(".group").attr("data-obj_id");
+				var contactId = $button.closest(".contact").attr("data-obj_id");
+				var group = snow.dm.get("group",groupId);
+				var contact = snow.dm.get("contact",contactId);
+				var dialogComponent = snow.ui.display("dialog",{
+						title: "Remove Group",
+						prompt: "Are you sure you want to remove group "+group.name+"?",
+						okLabel: "yes",
+						cancelLabel: "Cancel"
+					});
+
+					dialogComponent.onAnswerOk(function(){
+						for(var i=0;i<contact.groupIds.length;i++){
+							if(contact.groupIds[i] == groupId){
+								contact.groupIds.splice(i,1);
+								break;
+							}
+						}
+						snow.dm.save("contact",contact);
+						snow.ui.display("contactInfo",data);
+					});
 			});
 			
 			//helper functions
@@ -66,6 +98,17 @@
 								${this}
 							{{/each}}
 						</p>
+						<div class="groups">
+							<div class="groupLabel">Groups:</div>
+							<div class="groupValue">
+								{{each groups}}
+									<div class="group" data-obj_id="${this.id}">
+										<span class="groupName">${this.name}</span>
+										<span class="groupDel">X</span>
+									</div>
+								{{/each}}
+							</div>
+						</div>
 					</div>
 				{{/each}}
 			</div>

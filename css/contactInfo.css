@@ -1,0 +1,25 @@
+#contact-info .groups{
+	margin:10px 0 0 0;
+}
+
+#contact-info .groups > .groupLabel {
+	float:left;
+}
+
+#contact-info .groups > .groupValue {
+	float:left;
+	margin:0 0 0 10px;
+}
+#contact-info .groups > .groupValue .group{
+	margin: 0 0 5px 0;
+}
+
+#contact-info .groups > .groupValue .group > .groupDel{
+	background:rgba(204,204,204,1);
+	margin:0 0 0 10px;
+	cursor:pointer;
+	padding:0 3px 0 3px;
+}
+#contact-info .groups > .groupValue .group > .groupDel:hover{
+	font-weight:bold;
+}

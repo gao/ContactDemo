@@ -70,4 +70,11 @@ a:hover{
 	top: 0; right: 0; bottom: 0; left: 0;
 	z-index: 6;
 }
+.dialogScreener{
+	position: absolute;
+	top: 0; right: 0; bottom: 0; left: 0;
+	background-color: #000000;
+	opacity: .3;
+	z-index: 6;
+}
 /* -- /main --*/
