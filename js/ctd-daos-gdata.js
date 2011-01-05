@@ -9,11 +9,11 @@ ctd.daos = ctd.daos || {};
 ctd.daos.dataProviderType = "googleData";
 
 ctd.daos.hasToken = function(){
-	return chrome.extension.getBackgroundPage().oauth.hasToken();
+	return chrome.extension.getBackgroundPage().ng.core.oauth.hasToken();
 }
 
 ctd.daos.flushData = function(){
-	chrome.extension.getBackgroundPage().getData(function(){
+	chrome.extension.getBackgroundPage().ng.contact.getData(function(){
 		snow.ui.display("group");
 		snow.ui.display("contact");
 		snow.ui.display("welcome");
@@ -27,11 +27,11 @@ ctd.daos.getToken = function(callback){
 		snow.ui.display("welcome");
 		callback();
 	}
-	return chrome.extension.getBackgroundPage().getToken(function(){
+	return chrome.extension.getBackgroundPage().ng.contact.getToken(function(){
 		_callback();
 	});
 }
 
 ctd.daos.logOut = function(){
-	chrome.extension.getBackgroundPage().logout();
+	chrome.extension.getBackgroundPage().ng.core.logout();
 }
