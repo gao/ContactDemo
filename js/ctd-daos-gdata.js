@@ -35,3 +35,7 @@ ctd.daos.getToken = function(callback){
 ctd.daos.logOut = function(){
 	chrome.extension.getBackgroundPage().ng.core.logout();
 }
+
+ctd.daos.createContact = function(data){
+	return chrome.extension.getBackgroundPage().ng.contact.createContact(data);
+}

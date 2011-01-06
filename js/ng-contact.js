@@ -49,12 +49,52 @@
 		});
 	};
 	
+	ng.contact.createContact = function(data) {
+		var url = 'http://www.google.com/m8/feeds/contacts/default/full';
+		var bodyXmlEntry = '<atom:entry xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005"><atom:category scheme="http://schemas.google.com/g/2005#kind" term="http://schemas.google.com/contact/2008#contact" />'
+		if(data.name){
+			bodyXmlEntry = bodyXmlEntry + '<gd:name><gd:fullName>'+data.name+'</gd:fullName></gd:name>';
+		}
+		if(data.phone){
+			bodyXmlEntry = bodyXmlEntry + '<gd:phoneNumber rel="http://schemas.google.com/g/2005#work" primary="true">'+data.phone+'</gd:phoneNumber>';
+		}
+		if(data.emails){
+			for(var i=0;i<data.emails.length;i++){
+				if(i == 0){
+					bodyXmlEntry = bodyXmlEntry + '<gd:email rel="http://schemas.google.com/g/2005#work" primary="true" address="'+data.emails[i]+'"/>';
+				}else if(i == 1){
+					bodyXmlEntry = bodyXmlEntry + '<gd:email rel="http://schemas.google.com/g/2005#home"  address="'+data.emails[i]+'"/>';
+				}	
+			}
+		}
+		
+		bodyXmlEntry = bodyXmlEntry + '</atom:entry>';
+		var request = {
+		    'method': 'POST',
+		    'headers': {
+		      'GData-Version': '3.0',
+		      'Content-Type': 'application/atom+xml'
+		    },
+		    'parameters': {
+		      'alt': 'json'
+		    },
+		    'body': bodyXmlEntry
+		  };
+
+		ng.core.oauth.sendSignedRequest(url, callback, request);
+	};
+	
+	function callback(resp, xhr) {
+		
+	};
+	
 	var contacts = null;
 	var groups = null;
 	var hasGetContactsData = false;
 	var hasGetGroupsData = false;
 
 	function onContacts(text, xhr,callback) {
+		//localStorage.setItem("onContacts",text); 
 		contacts = [];
 		var data = JSON.parse(text);
 		for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
