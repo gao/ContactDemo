@@ -83,6 +83,7 @@
 				addGroupId(data.contactIds,groupId);
 				component.close();
 				snow.ui.display("group");
+				snow.ui.display("contactInfo",{ids:data.contactIds});
 			});
 			$element.find(".remove .group").bind("click",function(){
 				var $group = $(this);
@@ -90,6 +91,7 @@
 				removeGroupId(data.contactIds,groupId);
 				component.close();
 				snow.ui.display("group");
+				snow.ui.display("contactInfo",{ids:data.contactIds});
 			});
 			
 			//Helper functions
@@ -100,7 +102,9 @@
 					if(!contact.groupIds){
 						contact.groupIds = [];
 					}
-					contact.groupIds.push(groupId);
+					if($.inArray(groupId,contact.groupIds) == -1){
+						contact.groupIds.push(groupId);
+					}
 					snow.dm.save("contact",contact);
 				}
 			}
