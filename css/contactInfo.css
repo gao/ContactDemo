@@ -3,11 +3,12 @@
 }
 
 #contact-info .groups > .groupLabel {
-	float:left;
+	display:inline-block;
+	vertical-align:top;
 }
 
 #contact-info .groups > .groupValue {
-	float:left;
+	display:inline-block;
 	margin:0 0 0 10px;
 }
 #contact-info .groups > .groupValue .group{
