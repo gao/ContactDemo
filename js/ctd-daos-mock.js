@@ -33,3 +33,11 @@ ctd.daos.getToken = function(callback){
 ctd.daos.logOut = function(){
 	localStorage.removeItem("oauth_tokenMock");
 }
+
+ctd.daos.createContact = function(data){
+	
+}
+
+ctd.daos.deleteContact = function(editLink){
+
+}

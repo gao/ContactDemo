@@ -88,6 +88,22 @@
 		
 	};
 	
+	ng.contact.deleteContact = function(editLink) {
+		var url = editLink;
+		var request = {
+		    'method': 'POST',
+		    'headers': {
+		      'X-HTTP-Method-Override': 'DELETE',
+		      'Content-Type': 'application/atom+xml'
+		    }
+		  };
+
+		ng.core.oauth.sendSignedRequest(url, deleteCallback, request);
+	};
+	function deleteCallback(resp, xhr) {
+		//localStorage.setItem("deleteStatu",xhr.status);
+	};
+	
 	var contacts = null;
 	var groups = null;
 	var hasGetContactsData = false;
@@ -102,6 +118,7 @@
 				'name' : entry['title']['$t'],
 				'id' : entry['id']['$t'],
 				'emails' : [],
+				'editLink' : '',
 				'groupIds' : []
 			};
 
@@ -120,6 +137,16 @@
 				var groupIds = entry['gContact$groupMembershipInfo'];
 				for (var m = 0, groupId; groupId = groupIds[m]; m++) {
 					contact['groupIds'].push(groupId['href']);
+				}
+			 }
+			
+			if (entry['link']) {
+				var links = entry['link'];
+				for (var n = 0, link; link = links[n]; n++) {
+					if(link['rel'] == "edit"){
+						contact['editLink'] = link['href'];
+						break;
+					}
 				}
 			 }
 

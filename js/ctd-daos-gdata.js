@@ -39,3 +39,7 @@ ctd.daos.logOut = function(){
 ctd.daos.createContact = function(data){
 	return chrome.extension.getBackgroundPage().ng.contact.createContact(data);
 }
+
+ctd.daos.deleteContact = function(editLink){
+	return chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink);
+}
