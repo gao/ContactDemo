@@ -35,7 +35,9 @@
 				snow.ui.display("contactForm",{id:id});
 			});
 			$element.find(".btnDeleteContact:not(.disable)").click(function(){
-				deleteContact(id);
+				for(var i=0;i<data.ids.length;i++){
+					deleteContact(id);
+				}
 				if(editLink){
 					ctd.daos.deleteContact(editLink);
 				}
@@ -89,7 +91,7 @@
 		<div class="main-header">
 			<span class="button btnEdit {{if contacts.length!=1}}disable{{/if}}"><span class="ico icoEdit"></span><span class="text">Edit</span></span>
 			<span class="button btnGroup {{if contacts.length<1}}disable{{/if}}"><span class="ico icoGroup"></span><span class="text">Group</span><span class="ico icoDown"></span></span>
-			<span class="button btnDeleteContact {{if contacts.length!=1}}disable{{/if}} del"><span class="ico icoDel"></span><span class="text">Delete Contact</span></span>
+			<span class="button btnDeleteContact {{if contacts.length<1}}disable{{/if}} del"><span class="ico icoDel"></span><span class="text">Delete Contact</span></span>
 		</div>
 		<div class="main-content">
 			<div id="contact-info">
