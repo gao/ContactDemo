@@ -1,0 +1,18 @@
+.drag{
+	position:absolute;
+	z-index:100;
+	left:0;
+	top:0;
+	width:250px;
+	height:20px;
+	overflow:hidden;
+	background:rgba(204,204,204,.5);
+}
+
+.drop{
+	background:rgba(255,133,72,.2);
+}
+
+.drop:hover{
+	background:rgba(255,133,72,.2) !important;
+}

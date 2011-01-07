@@ -62,6 +62,10 @@
 				snow.ui.display("contactInfo",{ids:contactIds});
 			});
 			
+			/*-- drag contact --*/
+			$element.find(".contact").dragable();
+			/*-- /drag contact --*/
+			
 			//Helper functions
 			function showCheck($contact){
 				var $checkbox = $contact.find("input");
@@ -108,21 +112,6 @@
 			<div class="contact" data-obj_type="contact" data-obj_id="${id}" >
 				<div><input type="checkbox" name="contactIds" /><span class="name">${name}</span></div>
 			</div>	
-				<!--<div> 
-					<span class="name">Name: <a class="edit" onclick="snow.ui.display('dialogContact',{id:'${id}'})" >${name}</a></span>
-					<span>Address: ${address}</span>
-					<span>Phone: ${phone}</span>
-				</div> 
-				<div class="group"> 
-					Groups: 
-					{{each groups}}
-						<span class="edit groupValue" onclick="deleteGroupContact('${groupContactId}')">${name}&nbsp;&nbsp;x</span>
-					{{/each groups}} 
-					<span class="edit" onclick="snow.ui.display('groupcontact',{contactId:'${id}'})">(Add Groups)</span>
-				</div>
-				<div class="del" onclick="deleteContact('${id}')" >Del</div>
-				<div class="del"  onclick="snow.ui.display('dialogContact',{id:'${id}'})">Edit&nbsp;</div>
-				-->
 		{{/each contacts}}
 		</div>
 	</div>

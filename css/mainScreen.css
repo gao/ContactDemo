@@ -51,6 +51,7 @@
 .mainScreen > .center #trdCol .main > .main-header > .del{
 	position:absolute;
 	right:5px;
+	z-index:2;
 }
 .mainScreen > .center #trdCol .main > .main-content {
 	padding:5px 0px 0px 15px;

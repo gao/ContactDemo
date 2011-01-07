@@ -43,7 +43,28 @@
 				snow.ui.display("groupInfo",{id:id});
 				
 				snow.ui.display("contact",{groupId:id});
+				
 			});
+			
+			/*-- drop contact --*/
+			$element.find(".group").dropable({
+				accept:".contact",
+				drop: function(e, opt){
+					var $group = $(this);
+					snow.log.info($group);
+					var groupId = $group.attr("data-obj_id");
+					$group.removeClass("drop");
+					var $contact = opt.dragable;
+					var contactId = $contact.attr("data-obj_id");
+					var contact = snow.dm.get("contact", contactId);
+					if ($.inArray(groupId, contact.groupIds) == -1) {
+						contact.groupIds.push(groupId);
+						snow.dm.save("contact", contact);
+					}
+					snow.ui.display("group");
+				}
+			});
+			/*-- /drop contact --*/
 		}
 	});
 
