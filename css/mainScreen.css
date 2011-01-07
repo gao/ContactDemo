@@ -1,14 +1,14 @@
 .mainScreen{
-	border:1px solid rgba(102,136,238,1);
 	width:1200px;
 	height:500px;
 	margin:0 auto;
+	background:rgba(255,255,255,1);
 }
 
 .mainScreen > .top{
 	width:100%;
 	padding:3px 0 1px 0;
-	background:rgba(187,204,255,1);
+	background:-webkit-gradient(linear,0% 0%, 0% 100%, from(#DBDBE8), to(#DBDBE8), color-stop(0.5,#f5f6f7));
 }
 .mainScreen > .top .btnLog{
 	float:right;
@@ -26,12 +26,15 @@
 	width:250px;
 	left:0;
 	top:0;
+	border-bottom: solid 1px #BCF; 
+	border-left: solid 1px #BCF; 
+	border-right: solid 1px #BCF; 
 }
 
 .mainScreen > .center #secCol{
 	width: 300px;
 	position:absolute;
-	left:250px;
+	left:252px;
 	top:0;
 }
 
@@ -40,6 +43,9 @@
 	width:648px;
 	left:550px;
 	top:0;
+	border-bottom: solid 1px #BCF; 
+	border-left: solid 1px #BCF; 
+	border-right: solid 1px #BCF; 
 }
 .mainScreen > .center #trdCol .main > .main-header{
 	padding:8px 0 6px 0;
