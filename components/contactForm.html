@@ -26,8 +26,6 @@
 			});
 			$element.find(".btnOk").click(function(){
 				var contact = updateContact();
-				snow.ui.display("contactInfo",{ids:[contact.id]});
-				snow.ui.display("contact");
 			});
 			
 			$element.find(".addEmail").click(function(){
@@ -56,7 +54,6 @@
 					}
 				});
 				contact.emails = emails;
-				snow.dm.save("contact",contact);
 				ng.daos.createContact(contact);
 				return contact;
 			}

@@ -49,7 +49,10 @@
 		});
 	};
 	
-	ng.contact.createContact = function(data) {
+	ng.contact.createContact = function(data,callback) {
+		var callbackData = function(resp, xhr){
+			createCallback(resp, xhr, callback);
+		}
 		var url = 'http://www.google.com/m8/feeds/contacts/default/full';
 		var bodyXmlEntry = '<atom:entry xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005"><atom:category scheme="http://schemas.google.com/g/2005#kind" term="http://schemas.google.com/contact/2008#contact" />'
 		if(data.name){
@@ -81,14 +84,64 @@
 		    'body': bodyXmlEntry
 		  };
 
-		ng.core.oauth.sendSignedRequest(url, callback, request);
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);
 	};
 	
-	function callback(resp, xhr) {
+	function createCallback(resp, xhr, callback) {
+		//localStorage.setItem("resp",resp);
+		var contacts = localStorage.contacts;
+		if(contacts == null){
+			contacts = new Array();
+		}else{
+			contacts = JSON.parse(contacts);
+		}
+		var data = JSON.parse(resp);
+		var entry = data.entry;
+		var contact = {
+				'name' : entry['title']['$t'],
+				'id' : entry['id']['$t'],
+				'emails' : [],
+				'editLink' : '',
+				'groupIds' : []
+			};
+		if (entry['gd$email']) {
+			var emails = entry['gd$email'];
+			for (var j = 0, email; email = emails[j]; j++) {
+				contact['emails'].push(email['address']);
+			}
+		 }
+
+		if (!contact['name']) {
+			contact['name'] = contact['emails'][0] || "<Unknown>";
+		}
+
+		if (entry['gContact$groupMembershipInfo']) {
+			var groupIds = entry['gContact$groupMembershipInfo'];
+			for (var m = 0, groupId; groupId = groupIds[m]; m++) {
+				contact['groupIds'].push(groupId['href']);
+			}
+		}
 		
+		if (entry['link']) {
+			var links = entry['link'];
+			for (var n = 0, link; link = links[n]; n++) {
+				if(link['rel'] == "edit"){
+					contact['editLink'] = link['href'];
+					break;
+				}
+			}
+		}
+		
+		contacts.push(contact);
+		localStorage.contacts = JSON.stringify(contacts);
+		
+		if(callback){
+			callback();
+		}
 	};
 	
 	ng.contact.deleteContact = function(editLink,callback) {
+		//localStorage.setItem("editLink",editLink);
 		var callbackData = function(resp, xhr){
 			deleteCallback(resp, xhr,callback);
 		}

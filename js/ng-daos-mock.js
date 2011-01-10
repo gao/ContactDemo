@@ -35,7 +35,9 @@ ng.daos.logOut = function(){
 }
 
 ng.daos.createContact = function(data){
-	
+	snow.dm.save("contact",data);
+	snow.ui.display("contactInfo");
+	snow.ui.display("contact");
 }
 
 ng.daos.deleteContact = function(editLink){

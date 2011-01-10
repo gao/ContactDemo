@@ -37,7 +37,10 @@ ng.daos.logOut = function(){
 }
 
 ng.daos.createContact = function(data){
-	return chrome.extension.getBackgroundPage().ng.contact.createContact(data);
+	return chrome.extension.getBackgroundPage().ng.contact.createContact(data,function(){
+		snow.ui.display("contactInfo");
+		snow.ui.display("contact");
+	});
 }
 
 ng.daos.deleteContact = function(id){
