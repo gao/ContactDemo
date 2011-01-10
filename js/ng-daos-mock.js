@@ -3,17 +3,17 @@ snow.dm.registerDao("contact",new MockContactDao());
 
 snow.dm.registerDao("group",new MockGroupDao());
 
-var ctd = ctd || {};
-ctd.daos = ctd.daos || {};
+var ng = ng || {};
+ng.daos = ng.daos || {};
 
-ctd.daos.dataProviderType = "mockData";
+ng.daos.dataProviderType = "mockData";
 
-ctd.daos.hasToken = function(){
+ng.daos.hasToken = function(){
 	var hasToken = localStorage.getItem("oauth_tokenMock") ? true : false;
 	return hasToken;
 }
 
-ctd.daos.flushData = function(){
+ng.daos.flushData = function(){
 	localStorage.setItem("groups",JSON.stringify(mockGroupDatas));
 	localStorage.setItem("contacts",JSON.stringify(mockContactDatas));
 	snow.ui.display("group");
@@ -21,7 +21,7 @@ ctd.daos.flushData = function(){
 	snow.ui.display("welcome");
 }
 
-ctd.daos.getToken = function(callback){
+ng.daos.getToken = function(callback){
 	localStorage.setItem("oauth_tokenMock","mockToken");
 	callback();
 	$logoffButton.show();
@@ -30,14 +30,14 @@ ctd.daos.getToken = function(callback){
 	return token;
 }
 
-ctd.daos.logOut = function(){
+ng.daos.logOut = function(){
 	localStorage.removeItem("oauth_tokenMock");
 }
 
-ctd.daos.createContact = function(data){
+ng.daos.createContact = function(data){
 	
 }
 
-ctd.daos.deleteContact = function(editLink){
+ng.daos.deleteContact = function(editLink){
 	snow.dm.remove("contact",id);
 }

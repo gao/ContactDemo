@@ -30,23 +30,23 @@
 			var $loginButton = $element.find(".btnLog.btnLogin");
 			var $logoffButton = $element.find(".btnLog.btnLogoff");
 			$loginButton.click(function(){
-				ctd.daos.getToken(function(){
+				ng.daos.getToken(function(){
 					$logoffButton.show();
 					$loginButton.hide();
 				});
 			});
 			
 			$logoffButton.click(function(){
-				ctd.daos.logOut();
+				ng.daos.logOut();
 				$loginButton.show();
 				$logoffButton.hide();
 			});
 			
 			// test if has token
-			if(ctd.daos.hasToken()){
+			if(ng.daos.hasToken()){
 				$logoffButton.show();
 				$loginButton.hide();
-				ctd.daos.flushData();
+				ng.daos.flushData();
 			}else{
 				$loginButton.show();
 				$logoffButton.hide();
