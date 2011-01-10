@@ -40,6 +40,12 @@ ctd.daos.createContact = function(data){
 	return chrome.extension.getBackgroundPage().ng.contact.createContact(data);
 }
 
-ctd.daos.deleteContact = function(editLink){
-	return chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink);
+ctd.daos.deleteContact = function(id){
+	var contact = snow.dm.get("contact",id);
+	var editLink = contact.editLink;
+	chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink,function(){
+		snow.dm.remove("contact",id);
+		snow.ui.display("contactInfo");
+		snow.ui.display("contact");
+	});
 }

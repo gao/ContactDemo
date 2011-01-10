@@ -30,19 +30,13 @@
 			var thisComponent = this;
 			var $element = this.$element;
 			var id = $element.find(".main-content .contact[data-obj_id]").attr("data-obj_id");
-			var editLink = $element.find(".main-content .contact[data-obj_editLink]").attr("data-obj_editLink");
 			$element.find(".btnEdit:not(.disable)").click(function(){
 				snow.ui.display("contactForm",{id:id});
 			});
 			$element.find(".btnDeleteContact:not(.disable)").click(function(){
 				for(var i=0;i<data.ids.length;i++){
-					deleteContact(id);
+					ctd.daos.deleteContact(data.ids[i]);
 				}
-				if(editLink){
-					ctd.daos.deleteContact(editLink);
-				}
-				snow.ui.display("contactInfo");
-				snow.ui.display("contact");
 			});
 			$element.find(".btnGroup:not(.disable)").click(function(){
 				var $button = $(this);
@@ -76,10 +70,7 @@
 					});
 			});
 			
-			//helper functions
-			function deleteContact(id){
-				snow.dm.remove("contact",id);
-			}
+			
 		}
 	});
 
@@ -97,7 +88,7 @@
 			<div id="contact-info">
 				<h2>${contacts.length} contact(s) selected</h2>
 				{{each contacts}}
-					<div class="item contact" data-obj_id="${id}" data-obj_editLink="${editLink}">
+					<div class="item contact" data-obj_id="${id}">
 						<p class="name">${name}</p>
 						<p class="email">
 							{{each emails}}

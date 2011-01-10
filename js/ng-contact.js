@@ -88,7 +88,10 @@
 		
 	};
 	
-	ng.contact.deleteContact = function(editLink) {
+	ng.contact.deleteContact = function(editLink,callback) {
+		var callbackData = function(resp, xhr){
+			deleteCallback(resp, xhr,callback);
+		}
 		var url = editLink;
 		var request = {
 		    'method': 'POST',
@@ -98,10 +101,13 @@
 		    }
 		  };
 
-		ng.core.oauth.sendSignedRequest(url, deleteCallback, request);
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);
 	};
-	function deleteCallback(resp, xhr) {
+	function deleteCallback(resp, xhr, callback) {
 		//localStorage.setItem("deleteStatu",xhr.status);
+		if(callback){
+			callback();
+		}
 	};
 	
 	var contacts = null;

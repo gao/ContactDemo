@@ -39,5 +39,5 @@ ctd.daos.createContact = function(data){
 }
 
 ctd.daos.deleteContact = function(editLink){
-
+	snow.dm.remove("contact",id);
 }
