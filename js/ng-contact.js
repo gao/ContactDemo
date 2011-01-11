@@ -130,7 +130,9 @@
 				'id' : entry['id']['$t'],
 				'emails' : [],
 				'editLink' : '',
-				'groupIds' : []
+				'groupIds' : [],
+				'phone' : [],
+				'address' : []
 			};
 
 			if (entry['gd$email']) {
@@ -149,7 +151,21 @@
 				for (var m = 0, groupId; groupId = groupIds[m]; m++) {
 					contact['groupIds'].push(groupId['href']);
 				}
-			 }
+			}
+			
+			if (entry['gd$phoneNumber']) {
+				var phoneNumbers = entry['gd$phoneNumber'];
+				for (var m = 0, phoneNumber; phoneNumber = phoneNumbers[m]; m++) {
+					contact['phone'].push(phoneNumber['$t']);
+				}
+			}
+			
+			if (entry['gd$postalAddress']) {
+				var postalAddress = entry['gd$postalAddress'];
+				for (var m = 0, pAddress; pAddress = postalAddress[m]; m++) {
+					contact['address'].push(pAddress['$t']);
+				}
+			}
 			
 			if (entry['link']) {
 				var links = entry['link'];
