@@ -43,3 +43,10 @@ ng.daos.createContact = function(data){
 ng.daos.deleteContact = function(editLink){
 	snow.dm.remove("contact",id);
 }
+
+ng.daos.createGroup = function(data,callback){
+	snow.dm.save("group",group);
+	if(callback){
+		callback();
+	}
+}

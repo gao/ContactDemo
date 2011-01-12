@@ -52,3 +52,7 @@ ng.daos.deleteContact = function(id){
 		snow.ui.display("contact");
 	});
 }
+
+ng.daos.createGroup = function(data,callback){
+	return chrome.extension.getBackgroundPage().ng.contact.createGroup(data,callback);
+}

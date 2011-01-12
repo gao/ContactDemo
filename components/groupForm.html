@@ -26,8 +26,6 @@
 			});
 			$element.find(".btnOk").click(function(){
 				var group = updateGroup();
-				snow.ui.display("groupInfo",{id:group.id});
-				snow.ui.display("group");
 			});
 			
 			// helper functions
@@ -35,7 +33,12 @@
 				var group = {};
 				group.id = $element.find("input[name='id']").val();
 				group.name = $element.find("input[name='name']").val();
-				snow.dm.save("group",group);
+
+				var callBack = function(){
+					snow.ui.display("groupInfo");
+					snow.ui.display("group");
+				}
+				ng.daos.createGroup(group,callBack);
 				return group;
 			}
 		}

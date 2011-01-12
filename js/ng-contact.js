@@ -115,6 +115,37 @@
 		}
 	};
 	
+	ng.contact.createGroup = function(data,callback) {
+		var callbackData = function(resp, xhr){
+			createGroupCallback(resp, xhr, callback);
+		}
+		var url = 'http://www.google.com/m8/feeds/groups/default/full';
+		var bodyXmlEntry = '<atom:entry xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005"><atom:category scheme="http://schemas.google.com/g/2005#kind" term="http://schemas.google.com/contact/2008#group" />'
+		if(data.name){
+			bodyXmlEntry = bodyXmlEntry + '<atom:title type="text">'+data.name+'</atom:title><atom:content type="text">'+data.name+'</atom:content>';
+		}
+		bodyXmlEntry = bodyXmlEntry + '</atom:entry>';
+		//localStorage.setItem("bodyXmlEntry",bodyXmlEntry);
+		var request = {
+		    'method': 'POST',
+		    'headers': {
+		      'GData-Version': '3.0',
+		      'Content-Type': 'application/atom+xml'
+		    },
+		    'parameters': {
+		      'alt': 'json'
+		    },
+		    'body': bodyXmlEntry
+		  };
+
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);
+	};
+	
+	function createGroupCallback(resp, xhr, callback) {
+		//localStorage.setItem("createGroup xhr.status",xhr.status); 
+		ng.contact.fetchGroupList(callback);
+	};
+	
 	var contacts = null;
 	var groups = null;
 	var hasGetContactsData = false;
@@ -191,6 +222,7 @@
 	};
 
 	function onGroups(text, xhr,callback) {
+		//localStorage.setItem("onGroups",text); 
 		groups = [];
 		var data = JSON.parse(text);
 		for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
