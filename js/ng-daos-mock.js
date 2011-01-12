@@ -50,3 +50,10 @@ ng.daos.createGroup = function(data,callback){
 		callback();
 	}
 }
+
+ng.daos.deleteContact = function(id){
+	snow.dm.remove("group",id);
+	if(callback){
+		callback();
+	}
+}

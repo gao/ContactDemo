@@ -56,3 +56,9 @@ ng.daos.deleteContact = function(id){
 ng.daos.createGroup = function(data,callback){
 	return chrome.extension.getBackgroundPage().ng.contact.createGroup(data,callback);
 }
+
+ng.daos.deleteGroup = function(id,callback){
+	var group = snow.dm.get("group",id);
+	var editLink = group.editLink;
+	chrome.extension.getBackgroundPage().ng.contact.deleteGroup(editLink,callback);
+}

@@ -146,6 +146,29 @@
 		ng.contact.fetchGroupList(callback);
 	};
 	
+	ng.contact.deleteGroup = function(editLink,callback) {
+		//localStorage.setItem("editLink",editLink);
+		var callbackData = function(resp, xhr){
+			deleteGroupCallback(resp, xhr,callback);
+		}
+		var url = editLink;
+		var request = {
+		    'method': 'POST',
+		    'headers': {
+		      'X-HTTP-Method-Override': 'DELETE',
+		      'Content-Type': 'application/atom+xml'
+		    }
+		  };
+
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);
+	};
+	function deleteGroupCallback(resp, xhr, callback) {
+		//localStorage.setItem("deleteStatu",xhr.status);
+		if(callback){
+			callback();
+		}
+	};
+	
 	var contacts = null;
 	var groups = null;
 	var hasGetContactsData = false;
@@ -230,6 +253,16 @@
 				'name' : entry['title']['$t'],
 				'id' : entry['id']['$t']
 			};
+			
+			if (entry['link']) {
+				var links = entry['link'];
+				for (var n = 0, link; link = links[n]; n++) {
+					if(link['rel'] == "edit"){
+						group['editLink'] = link['href'];
+						break;
+					}
+				}
+			 }
 
 			groups.push(group);
 			localStorage.groups = JSON.stringify(groups);

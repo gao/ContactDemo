@@ -53,19 +53,25 @@
 			});
 			$element.find(".btnDeleteGroup:not(.disable)").click(function(){
 				deleteGroup(id);
-				snow.ui.display("groupInfo");
-				snow.ui.display("group");
 			});
 			//helper functions
 			function deleteGroup(id){
-				snow.dm.remove("group",id);
+				var callback = function(){
+					snow.dm.remove("group",id);
+					snow.ui.display("groupInfo");
+					snow.ui.display("group");
+					snow.ui.display("contact");
+				}
+				
+				ng.daos.deleteGroup(id,callback);
+				/*
 				var groupContacts = snow.dm.find("groupcontact",{});
 				for(var i=0;i<groupContacts.length;i++){
 					var o = groupContacts[i];
 					if(id == o.groupId){
 						snow.dm.remove("groupcontact",o.id);
 					}
-				}
+				}*/
 			}
 		}
 	});
@@ -87,5 +93,4 @@
 			</div>
 		</div>
 	</div>
-</script>
-
+</script
