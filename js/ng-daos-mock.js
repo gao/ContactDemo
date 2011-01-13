@@ -23,9 +23,7 @@ ng.daos.flushData = function(callback){
 
 ng.daos.getToken = function(callback){
 	localStorage.setItem("oauth_tokenMock","mockToken");
-	if(callback){
-		callback();
-	}
+	ng.daos.flushData(callback);
 	var token = localStorage.getItem("oauth_tokenMock");
 	return token;
 }
@@ -49,13 +47,13 @@ ng.daos.deleteContact = function(id,callback){
 }
 
 ng.daos.createGroup = function(data,callback){
-	snow.dm.save("group",group);
+	snow.dm.save("group",data);
 	if(callback){
 		callback();
 	}
 }
 
-ng.daos.deleteContact = function(id){
+ng.daos.deleteGroup = function(id,callback){
 	snow.dm.remove("group",id);
 	if(callback){
 		callback();
