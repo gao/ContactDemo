@@ -12,45 +12,30 @@ ng.daos.hasToken = function(){
 	return chrome.extension.getBackgroundPage().ng.core.oauth.hasToken();
 }
 
-ng.daos.flushData = function(){
-	chrome.extension.getBackgroundPage().ng.contact.getData(function(){
-		snow.ui.display("group");
-		snow.ui.display("contact");
-		snow.ui.display("welcome");
-	});
+ng.daos.flushData = function(callback){
+	chrome.extension.getBackgroundPage().ng.contact.getData(callback);
 }
 
 ng.daos.getToken = function(callback){
-	var _callback = function(){
-		snow.ui.display("group");
-		snow.ui.display("contact");
-		snow.ui.display("welcome");
-		callback();
-	}
-	return chrome.extension.getBackgroundPage().ng.contact.getToken(function(){
-		_callback();
-	});
+	return chrome.extension.getBackgroundPage().ng.contact.getToken(callback);
 }
 
 ng.daos.logOut = function(){
 	chrome.extension.getBackgroundPage().ng.core.logout();
 }
 
-ng.daos.createContact = function(data){
-	return chrome.extension.getBackgroundPage().ng.contact.createContact(data,function(){
-		snow.ui.display("contactInfo");
-		snow.ui.display("contact");
-	});
+ng.daos.createContact = function(data,callback){
+	return chrome.extension.getBackgroundPage().ng.contact.createContact(data,callback);
 }
 
-ng.daos.deleteContact = function(id){
+ng.daos.deleteContact = function(id,callback){
 	var contact = snow.dm.get("contact",id);
 	var editLink = contact.editLink;
-	chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink,function(){
+	var _callback = function(){
 		snow.dm.remove("contact",id);
-		snow.ui.display("contactInfo");
-		snow.ui.display("contact");
-	});
+		callback();
+	}
+	chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink,_callback);
 }
 
 ng.daos.createGroup = function(data,callback){

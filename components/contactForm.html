@@ -54,7 +54,10 @@
 					}
 				});
 				contact.emails = emails;
-				ng.daos.createContact(contact);
+				ng.daos.createContact(contact,function(){
+					snow.ui.display("contactInfo");
+					snow.ui.display("contact");
+				});
 				return contact;
 			}
 		}

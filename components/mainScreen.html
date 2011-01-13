@@ -33,6 +33,9 @@
 				ng.daos.getToken(function(){
 					$logoffButton.show();
 					$loginButton.hide();
+					snow.ui.display("group");
+					snow.ui.display("contact");
+					snow.ui.display("welcome");
 				});
 			});
 			
@@ -46,7 +49,11 @@
 			if(ng.daos.hasToken()){
 				$logoffButton.show();
 				$loginButton.hide();
-				ng.daos.flushData();
+				ng.daos.flushData(function(){
+					snow.ui.display("group");
+					snow.ui.display("contact");
+					snow.ui.display("welcome");
+				});
 			}else{
 				$loginButton.show();
 				$logoffButton.hide();

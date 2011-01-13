@@ -35,7 +35,11 @@
 			});
 			$element.find(".btnDeleteContact:not(.disable)").click(function(){
 				for(var i=0;i<data.ids.length;i++){
-					ng.daos.deleteContact(data.ids[i]);
+					var id = data.ids[i];
+					ng.daos.deleteContact(id,function(){
+						snow.ui.display("contactInfo");
+						snow.ui.display("contact");
+					});
 				}
 			});
 			$element.find(".btnGroup:not(.disable)").click(function(){
