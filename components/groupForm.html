@@ -38,7 +38,12 @@
 					snow.ui.display("groupInfo");
 					snow.ui.display("group");
 				}
-				ng.daos.createGroup(group,callBack);
+				
+				if(id){
+					ng.daos.updateGroup(group,callBack);
+				}else{
+					ng.daos.createGroup(group,callBack);
+				}
 				return group;
 			}
 		}

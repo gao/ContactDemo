@@ -167,6 +167,49 @@
 		ng.contact.fetchContactList(callback);
 	};
 	
+	ng.contact.updateGroup = function(editLink, data, callback) {
+		//localStorage.setItem("editLink",editLink);
+		var callbackData = function(resp, xhr){
+			getGroupCallback(resp, xhr, editLink, data, callback);
+		}
+		var url = data.id;
+		var request = {
+		    'method': 'GET',
+		    'headers': {
+				'Content-Type': 'application/atom+xml'
+		    }
+		 };
+
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);
+	};
+	
+	function getGroupCallback(resp, xhr, editLink, data, callback) {
+		//localStorage.setItem("getStatu",xhr.status);
+		var xmldoc = xhr.responseXML;
+		xmldoc.getElementsByTagName("title")[0].firstChild.nodeValue = data.name;
+		xmldoc.getElementsByTagName("content")[0].firstChild.nodeValue = data.name;
+		
+		var callbackData = function(resp, xhr){
+			updateGroupCallback(resp, xhr, callback);
+		}
+		
+		var url = editLink;
+		var request = {
+		    'method': 'PUT',
+		    'headers': {
+				'Content-Type': 'application/atom+xml'
+		    },
+		    'body': xmldoc
+		 };
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);		
+	};
+	
+	function updateGroupCallback(resp, xhr, callback) {
+		//localStorage.setItem("updateStatu",xhr.status);
+		ng.contact.fetchGroupList(callback);
+	};
+	
+	
 	var contacts = null;
 	var groups = null;
 	var hasGetContactsData = false;
