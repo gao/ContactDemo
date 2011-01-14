@@ -164,9 +164,7 @@
 	};
 	function deleteGroupCallback(resp, xhr, callback) {
 		//localStorage.setItem("deleteStatu",xhr.status);
-		if(callback){
-			callback();
-		}
+		ng.contact.fetchContactList(callback);
 	};
 	
 	var contacts = null;
