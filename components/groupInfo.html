@@ -52,7 +52,17 @@
 				snow.ui.display("groupForm",{id:id});
 			});
 			$element.find(".btnDeleteGroup:not(.disable)").click(function(){
-				deleteGroup(id);
+				var dialogComponent = snow.ui.display("dialog",{
+					title: "Delete Group",
+					prompt: "Are you sure you want to delete group "+group.name+"?",
+					okLabel: "Yes",
+					cancelLabel: "Cancel"
+				});
+
+				dialogComponent.onAnswerOk(function(){
+					deleteGroup(id);	
+				});
+				
 			});
 			//helper functions
 			function deleteGroup(id){
