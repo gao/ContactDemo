@@ -38,6 +38,13 @@ ng.daos.deleteContact = function(id,callback){
 	chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink,_callback);
 }
 
+ng.daos.updateContact = function(data,callback){
+	var contact = snow.dm.get("contact",data.id);
+	var selfLink = contact.selfLink;
+	var editLink = contact.editLink;
+	return chrome.extension.getBackgroundPage().ng.contact.updateContact(editLink,selfLink,data,callback);
+}
+
 ng.daos.createGroup = function(data,callback){
 	return chrome.extension.getBackgroundPage().ng.contact.createGroup(data,callback);
 }

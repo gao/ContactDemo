@@ -115,6 +115,50 @@
 		}
 	};
 	
+	ng.contact.updateContact = function(editLink, selfLink, data, callback) {
+		//localStorage.setItem("selfLink",selfLink);
+		//localStorage.setItem("editLink",editLink);
+		var callbackData = function(resp, xhr){
+			getContactCallback(resp, xhr, editLink, data, callback);
+		}
+		var url = selfLink;
+		var request = {
+		    'method': 'GET',
+		    'headers': {
+				'Content-Type': 'application/atom+xml'
+		    }
+		 };
+
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);
+	};
+	
+	function getContactCallback(resp, xhr, editLink, data, callback) {
+		localStorage.setItem("getStatu",xhr.status);
+		var xmldoc = xhr.responseXML;
+		xmldoc.getElementsByTagName("title")[0].firstChild.nodeValue = data.name;
+		//xmldoc.getElementsByTagName("gd:phoneNumber")[0].firstChild.nodeValue = data.phone;
+		//xmldoc.getElementsByTagName("gd:postalAddress")[0].firstChild.nodeValue = data.address;
+		
+		var callbackData = function(resp, xhr){
+			updateContactCallback(resp, xhr, callback);
+		}
+		
+		var url = editLink;
+		var request = {
+		    'method': 'PUT',
+		    'headers': {
+				'Content-Type': 'application/atom+xml'
+		    },
+		    'body': xmldoc
+		 };
+		ng.core.oauth.sendSignedRequest(url, callbackData, request);		
+	};
+	
+	function updateContactCallback(resp, xhr, callback) {
+		//localStorage.setItem("updateStatu",xhr.status);
+		ng.contact.fetchContactList(callback);
+	};
+	
 	ng.contact.createGroup = function(data,callback) {
 		var callbackData = function(resp, xhr){
 			createGroupCallback(resp, xhr, callback);
@@ -225,6 +269,7 @@
 				'id' : entry['id']['$t'],
 				'emails' : [],
 				'editLink' : '',
+				'selfLink' : '',
 				'groupIds' : [],
 				'phone' : [],
 				'address' : []
@@ -267,7 +312,9 @@
 				for (var n = 0, link; link = links[n]; n++) {
 					if(link['rel'] == "edit"){
 						contact['editLink'] = link['href'];
-						break;
+					}
+					if(link['rel'] == "self"){
+						contact['selfLink'] = link['href'];
 					}
 				}
 			 }
