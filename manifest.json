@@ -1,7 +1,7 @@
 {
   "name": "ContactsDemo",
-  "description": "Uses OAuth to connect to Google's contacts",
-  "version": "1.0.6",
+  "description": "Use SnowUI and Oauth Manage Your Google Contact Data",
+  "version": "1.0.1",
   "icons": { "48": "img/icon-48.png",
             "128": "img/icon-128.png" },
   "background_page": "background.html",

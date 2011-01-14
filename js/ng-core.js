@@ -8,7 +8,7 @@ ng.core.oauth = ChromeExOAuth.initBackgroundPage({
 	'consumer_key' : 'anonymous',
 	'consumer_secret' : 'anonymous',
 	'scope' : 'http://www.google.com/m8/feeds/',
-	'app_name' : 'Sample - OAuth Contacts'
+	'app_name' : 'SnowUI - Google Contact'
 	});
 
 ng.core.logout = function() {
