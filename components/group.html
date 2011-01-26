@@ -51,7 +51,6 @@
 				accept:".contact",
 				drop: function(e, opt){
 					var $group = $(this);
-					snow.log.info($group);
 					var groupId = $group.attr("data-obj_id");
 					$group.removeClass("drop");
 					var $contact = opt.dragable;

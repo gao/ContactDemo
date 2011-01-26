@@ -20,6 +20,9 @@
         	var name = new Date().getTime();
         	var $drag = $(this);
         	$drag.mousedown(function(e){
+        		if(opts.helper && $.isFunction(opts.helper)){
+        			opts.helper.call(this);
+        		}
     			var $dragClone = $drag.clone();
     			$("body").append("<div id='dragable-"+name+"'></div>");
     			var $dragElement = $("#dragable-"+name);
