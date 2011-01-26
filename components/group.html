@@ -58,8 +58,8 @@
 					var contactId = $contact.attr("data-obj_id");
 					var contact = snow.dm.get("contact", contactId);
 					if ($.inArray(groupId, contact.groupIds) == -1) {
-						contact.groupIds.push(groupId);
-						snow.dm.save("contact", contact);
+						//contact.groupIds.push(groupId);
+						snow.dm.save("groupcontact",{groupId:groupId,contactId:contactId});
 					}
 					snow.ui.display("group");
 				}

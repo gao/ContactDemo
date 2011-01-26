@@ -65,11 +65,11 @@
 					dialogComponent.onAnswerOk(function(){
 						for(var i=0;i<contact.groupIds.length;i++){
 							if(contact.groupIds[i] == groupId){
-								contact.groupIds.splice(i,1);
+								snow.dm.remove("groupcontact",{groupId:groupId,contactId:contactId});
 								break;
 							}
 						}
-						snow.dm.save("contact",contact);
+						
 						snow.ui.display("contactInfo",data);
 					});
 			});

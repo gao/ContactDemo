@@ -103,9 +103,8 @@
 						contact.groupIds = [];
 					}
 					if($.inArray(groupId,contact.groupIds) == -1){
-						contact.groupIds.push(groupId);
+						snow.dm.save("groupcontact",{groupId:groupId,contactId:contact.id});
 					}
-					snow.dm.save("contact",contact);
 				}
 			}
 			
@@ -117,11 +116,10 @@
 					}
 					for(var j=0;j<contact.groupIds.length;j++){
 						if(contact.groupIds[j] == groupId){
-							contact.groupIds.splice(j,1);
+							snow.dm.remove("groupcontact",{groupId:groupId,contactId:contact.id});
 							break;
 						}
 					}
-					snow.dm.save("contact",contact);
 				}
 			}
 		},

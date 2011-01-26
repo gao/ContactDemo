@@ -256,12 +256,14 @@
 	
 	var contacts = null;
 	var groups = null;
+	var groupcontact = null;
 	var hasGetContactsData = false;
 	var hasGetGroupsData = false;
 
 	function onContacts(text, xhr,callback) {
 		//localStorage.setItem("onContacts",text); 
 		contacts = [];
+		groupcontact = [];
 		var data = JSON.parse(text);
 		for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
 			var contact = {
@@ -270,7 +272,7 @@
 				'emails' : [],
 				'editLink' : '',
 				'selfLink' : '',
-				'groupIds' : [],
+				//'groupIds' : [],
 				'phone' : [],
 				'address' : []
 			};
@@ -289,7 +291,11 @@
 			if (entry['gContact$groupMembershipInfo']) {
 				var groupIds = entry['gContact$groupMembershipInfo'];
 				for (var m = 0, groupId; groupId = groupIds[m]; m++) {
-					contact['groupIds'].push(groupId['href']);
+					//contact['groupIds'].push(groupId['href']);
+					var groupContactData = [];
+					groupContactData.push(groupId['href']);
+					groupContactData.push(contact['id']);
+					groupcontact.push(groupContactData);
 				}
 			}
 			
@@ -321,8 +327,12 @@
 
 			contacts.push(contact);
   
-			localStorage.contacts = JSON.stringify(contacts);
+			
 		}
+		
+		localStorage.groupcontact = JSON.stringify(groupcontact);
+		
+		localStorage.contacts = JSON.stringify(contacts);
 
 		hasGetContactsData = true;
 		if(hasGetContactsData && hasGetGroupsData){
@@ -353,8 +363,10 @@
 			 }
 
 			groups.push(group);
-			localStorage.groups = JSON.stringify(groups);
+			
 		}
+		
+		localStorage.groups = JSON.stringify(groups);
 
 		hasGetGroupsData = true;
 		if(hasGetContactsData && hasGetGroupsData){

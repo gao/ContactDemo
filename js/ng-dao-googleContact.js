@@ -12,6 +12,8 @@
 							
 		GoogleContactDao.prototype.get = function(objectType,id){
 			var contact = getContactDataById(id);
+			var groupIds = this.getGroups(objectType,id);
+			contact.groupIds = groupIds;
 			if (contact){
 				return $.extend({},contact);
 			}else{
@@ -25,10 +27,12 @@
 			if(opts && opts.groupId){
 				for(var i = 0; i<contactStore.length;i++){
 					var contact = contactStore[i];
-					if(contact.groupIds){
+					var groupIds = this.getGroups(objectType,contact.id);
+					
+					if(groupIds){
 						var exist = false;
-						for(var j = 0 ;j<contact.groupIds.length;j++){
-							if(contact.groupIds[j] == opts.groupId){
+						for(var j = 0 ;j<groupIds.length;j++){
+							if(groupIds[j] == opts.groupId){
 								exist = true;
 								break;
 							}
@@ -70,6 +74,16 @@
 				snow.util.array.remove(contactStore, idx);
 				localStorage.contacts = JSON.stringify(contactStore);
 			}
+		};
+		
+		GoogleContactDao.prototype.getGroups = function(objectType,id){
+			var groupContact = snow.dm.find("groupcontact",{contactId:id});
+			var groupIds = [];
+			for(var i=0;i<groupContact.length;i++){
+				var groupContactData = groupContact[i];
+				groupIds.push(groupContactData[0]);
+			}
+			return groupIds;
 		};
 		// ------ /DAO Interface ------ //
 		
