@@ -5,8 +5,7 @@
 		
 		function GoogleGroupContactDao(){};
 
-		// ------ DAO Interface ------ //
-		
+		// ------ DAO Generic CRUD Interface ------ //	
 		GoogleGroupContactDao.prototype.get = function(objectType,id){
 			
 		};
@@ -70,7 +69,7 @@
 			localStorage.groupcontact = JSON.stringify(groupContact);
 		};
 		
-		// ------ /DAO Interface ------ //
+		// ------ /DAO Generic CRUD Interface ------ //
 		
 		// ------ Privates ------- //		
 		

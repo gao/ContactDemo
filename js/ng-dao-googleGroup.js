@@ -5,7 +5,7 @@
 			
 		function GoogleGroupDao(){};
 
-		// ------ DAO Interface ------ //
+		// ------ DAO Generic CRUD Interface ------ //
 		GoogleGroupDao.prototype.getId = function(objectType,data){
 			return data.id;
 		};
@@ -56,7 +56,7 @@
 				localStorage.groups = JSON.stringify(groups);
 			}
 		};
-		// ------ /DAO Interface ------ //
+		// ------ /DAO Generic CRUD Interface ------ //
 			
 		// ------ Privates ------- //
 		function getGroupDataById(groupId){

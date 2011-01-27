@@ -5,7 +5,7 @@
 		
 		function MockContactDao(){};
 
-		// ------ DAO Interface ------ //
+		// ------ DAO Generic CRUD Interface ------ //
 		MockContactDao.prototype.getId = function(objectType,data){
 			return data.id;
 		};
@@ -90,7 +90,7 @@
 			}
 			return groupIds;
 		};
-		// ------ /DAO Interface ------ //
+		// ------ /DAO Generic CRUD Interface ------ //
 		
 		// ------ Privates ------- //				
 		function getContactDataById(contactId){

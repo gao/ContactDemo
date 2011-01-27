@@ -1,11 +1,13 @@
 	var ng = ng || {};
 	ng.contact = ng.contact || {};		
 
+	//call the method for get the contact and group
 	ng.contact.getData = function(callback){
 		ng.contact.fetchContactList(callback);
 		ng.contact.fetchGroupList(callback);
 	};
 
+	//get the token
 	ng.contact.getToken = function(callback) {
 		var callbackData = function(){
 			ng.contact.getData(callback);
@@ -17,6 +19,7 @@
 		});
 	};
 
+	//get group
 	ng.contact.fetchGroupList = function(callback) {
 		var callbackData = function(text,xhr){
 			onGroups(text,xhr,callback);
@@ -33,6 +36,7 @@
 		});
 	};
 
+	//get contact
 	ng.contact.fetchContactList = function(callback) {
 		var callbackData = function(text,xhr){
 			onContacts(text,xhr,callback);
@@ -49,6 +53,7 @@
 		});
 	};
 	
+	// ------ create contact ------ //
 	ng.contact.createContact = function(data,callback) {
 		var callbackData = function(resp, xhr){
 			createCallback(resp, xhr, callback);
@@ -91,7 +96,9 @@
 		//localStorage.setItem("resp",resp);
 		ng.contact.fetchContactList(callback);
 	};
+	// ------ /create contact ------ //
 	
+	// ------ delete contact ------ //
 	ng.contact.deleteContact = function(editLink,callback) {
 		//localStorage.setItem("editLink",editLink);
 		var callbackData = function(resp, xhr){
@@ -114,7 +121,9 @@
 			callback();
 		}
 	};
+	// ------ /delete contact ------ //
 	
+	// ------ update contact ------ // 
 	ng.contact.updateContact = function(editLink, selfLink, data, callback) {
 		//localStorage.setItem("selfLink",selfLink);
 		//localStorage.setItem("editLink",editLink);
@@ -158,7 +167,9 @@
 		//localStorage.setItem("updateStatu",xhr.status);
 		ng.contact.fetchContactList(callback);
 	};
+	// ------ /update contact ------ // 
 	
+	// ------ create group ------ // 
 	ng.contact.createGroup = function(data,callback) {
 		var callbackData = function(resp, xhr){
 			createGroupCallback(resp, xhr, callback);
@@ -189,7 +200,9 @@
 		//localStorage.setItem("createGroup xhr.status",xhr.status); 
 		ng.contact.fetchGroupList(callback);
 	};
+	// ------ /create group ------ // 
 	
+	// ------ delete group ------ // 
 	ng.contact.deleteGroup = function(editLink,callback) {
 		//localStorage.setItem("editLink",editLink);
 		var callbackData = function(resp, xhr){
@@ -210,7 +223,9 @@
 		//localStorage.setItem("deleteStatu",xhr.status);
 		ng.contact.fetchContactList(callback);
 	};
+	// ------ /delete group ------ // 
 	
+	// ------ update group ------ // 
 	ng.contact.updateGroup = function(editLink, data, callback) {
 		//localStorage.setItem("editLink",editLink);
 		var callbackData = function(resp, xhr){
@@ -252,8 +267,10 @@
 		//localStorage.setItem("updateStatu",xhr.status);
 		ng.contact.fetchGroupList(callback);
 	};
+	// ------ /update group ------ // 
 	
 	
+	// ------ callback for get contact and group ------ // 
 	var contacts = null;
 	var groups = null;
 	var groupcontact = null;
@@ -375,6 +392,7 @@
 			}
 		}
 	};			
+	// ------ /callback for get contact and group ------ // 
 
 			
 
