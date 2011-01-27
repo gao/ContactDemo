@@ -12,6 +12,7 @@
 			var contacts = snow.dm.find("contact");
 			var contactsNumber = 0;
 			if(data && data.id!=""){
+				// test param id , if all, select all groups, if recent,select none. else select the group has this id.
 				if (data.id == "ALL") {
 					group.name = "All Contacts"
 					contactsNumber = contacts.length;
@@ -48,9 +49,13 @@
 			var thisComponent = this;
 			var $element = this.$element;
 			var id = $element.find(".main-content .groupInfo[data-obj_id]").attr("data-obj_id");
+			
+			//user click on button edit if not disable
 			$element.find(".btnEdit:not(.disable)").click(function(){
 				snow.ui.display("groupForm",{id:id});
 			});
+			
+			//user click on button delete group if not disable
 			$element.find(".btnDeleteGroup:not(.disable)").click(function(){
 				var dialogComponent = snow.ui.display("dialog",{
 					title: "Delete Group",
@@ -64,7 +69,10 @@
 				});
 				
 			});
-			//helper functions
+			
+			/*-- Helper Functions --*/
+			
+			// delete group
 			function deleteGroup(id){
 				var callback = function(){
 					snow.dm.remove("group",id);
@@ -76,6 +84,7 @@
 				ng.daos.deleteGroup(id,callback);
 				
 			}
+			/*-- /Helper Functions --*/
 		}
 	});
 	

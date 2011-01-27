@@ -12,30 +12,38 @@
         postDisplay: function(data){
 			var thisComponent = this;
 
-			var $cancel = this.$element.find(".button.btnCancel")
+			var $cancel = this.$element.find(".button.btnCancel");
+			
+			//user click on button cancel
             $cancel.click(function(){
 				thisComponent.setAnswer(false);
                 thisComponent.close();
             });
 			
 			var $ok = this.$element.find(".button.btnOk");
+			
+			//user click on button ok
             $ok.click(function(){
                 thisComponent.setAnswer(true);
             });
 
         },
+		//element remove when call this method
         close: function(){
             this.$element.remove();
             //remove the screener
             $("body > .dialogScreener").remove();
             $("body").unbind("keyup.dialog");
         },
+		//set answer call back
 		onAnswer: function(answerCallBack){
             this._answerCallBack = answerCallBack;
         },
+		//set answer ok call back
 		onAnswerOk: function(answerOkCallBack){
             this._answerOkCallBack = answerOkCallBack;
         },
+		//call the method when user click button ok or cancel
 		setAnswer: function(ok){
 			//always call
 			if (this._answerCallBack) {

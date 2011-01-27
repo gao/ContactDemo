@@ -10,6 +10,8 @@
 		build: function(data){
 			var groups = snow.dm.find("group",{});
 			var contacts = snow.dm.find("contact",{});
+			
+			/*-- wrap each group has contact count --*/
 			for(var i = 0; i<groups.length; i++){
 				var group = groups[i];
 				var contactsNumber = 0;
@@ -25,6 +27,7 @@
 				}
 				group.contactsNumber = contactsNumber;
 			}
+			/*-- /wrap each group has contact count --*/
 			
 			var $e = $("#tmpl-groupList").tmpl({"groups":groups,contacts:contacts});
 		
@@ -33,6 +36,8 @@
 		postDisplay:function(){
 			var thisComponent = this;
 			var $element = this.$element;
+			
+			//user click
 			$element.delegate(".group ","click",function(){
 				var $group = $(this);
 				

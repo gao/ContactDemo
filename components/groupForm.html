@@ -21,14 +21,20 @@
 			var component = this;
 			var $element = this.$element;
 			var id = $element.find("input[name='id']").val();
+			
+			//user click on button cancel
 			$element.find(".btnCancel").click(function(){
 				snow.ui.display("groupInfo",{id:id});
 			});
+			
+			//user click on button ok
 			$element.find(".btnOk").click(function(){
 				var group = updateGroup();
 			});
 			
-			// helper functions
+			/*-- Helper Functions --*/
+			
+			//update group info
 			function updateGroup(){
 				var group = {};
 				group.id = $element.find("input[name='id']").val();
@@ -46,6 +52,7 @@
 				}
 				return group;
 			}
+			/*-- /Helper Functions --*/
 		}
 	});
 

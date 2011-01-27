@@ -21,25 +21,34 @@
 			var component = this;
 			var $element = this.$element;
 			var id = $element.find("input[name='id']").val();
+			
+			//user click on button cancel
 			$element.find(".btnCancel").click(function(){
 				snow.ui.display("contactInfo",{id:id});
 			});
+			
+			//user click on button ok
 			$element.find(".btnOk").click(function(){
 				var contact = updateContact();
 			});
 			
+			
+			//user click on add email button 'add'
 			$element.find(".addEmail").click(function(){
 				var $email = $("#tmpl-email").tmpl({showDel:true});
 				var $button = $(this);
 				$button.closest(".formItem").append($email);
 			});
 			
+			//user click on add email button 'del'
 			$element.delegate(".delEmail","click",function(){
 				var $button = $(this);
 				$button.closest(".formItem-value").remove();
 			});
 			
-			// helper functions
+			/*-- Helper Functions --*/
+			
+			//update contact info 
 			function updateContact(){
 				var contact = {};
 				contact.id = $element.find("input[name='id']").val();
@@ -66,6 +75,7 @@
 				
 				return contact;
 			}
+			/*-- /Helper Functions --*/
 		}
 	});
 

@@ -74,9 +74,13 @@
 		postDisplay:function(data){
 			var component = this;
 			var $element = this.$element;
+			
+			//user click on #selectGroupScreener
 			$("#selectGroupScreener").click(function(){
 				component.close();
 			});
+			
+			//user click on group add section
 			$element.find(".add .group").bind("click",function(){
 				var $group = $(this);
 				var groupId = $group.attr("data-obj_id");
@@ -85,6 +89,8 @@
 				snow.ui.display("group");
 				snow.ui.display("contactInfo",{ids:data.contactIds});
 			});
+			
+			//user click on group remove section
 			$element.find(".remove .group").bind("click",function(){
 				var $group = $(this);
 				var groupId = $group.attr("data-obj_id");
@@ -94,7 +100,7 @@
 				snow.ui.display("contactInfo",{ids:data.contactIds});
 			});
 			
-			//Helper functions
+			/*-- Helper Functions --*/
 			function addGroupId(contactIds,groupId){
 				for (var i = 0; i < contactIds.length; i++) {
 					var contact = snow.dm.get("contact", contactIds[i]);
@@ -122,6 +128,7 @@
 					}
 				}
 			}
+			/*-- /Helper Functions --*/
 		},
 		close:function(){
 			this.$element.remove();

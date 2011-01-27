@@ -10,6 +10,7 @@
 		build: function(data){
 			var contacts = [];
 			if(data && data.ids){
+				/*-- wrap group for each contact --*/
 				for(var i = 0;i < data.ids.length; i++){
 					var contactId  = data.ids[i];
 					contact = snow.dm.get("contact",contactId);
@@ -22,6 +23,7 @@
 					}
 					contacts.push(contact);
 				}
+				/*-- /wrap group for each contact --*/
 			}
 			var $e = $("#tmpl-contactInfo").tmpl({contacts:contacts});
 			return $e;
@@ -30,9 +32,13 @@
 			var thisComponent = this;
 			var $element = this.$element;
 			var id = $element.find(".main-content .contact[data-obj_id]").attr("data-obj_id");
+			
+			//user click button edit which not disabled
 			$element.find(".btnEdit:not(.disable)").click(function(){
 				snow.ui.display("contactForm",{id:id});
 			});
+			
+			//user click button delete contact which not disabled
 			$element.find(".btnDeleteContact:not(.disable)").click(function(){
 				for(var i=0;i<data.ids.length;i++){
 					var id = data.ids[i];
@@ -42,6 +48,8 @@
 					});
 				}
 			});
+			
+			//user click button group which not disabled
 			$element.find(".btnGroup:not(.disable)").click(function(){
 				var $button = $(this);
 				var left = $button.offset().left;
@@ -49,6 +57,7 @@
 				snow.ui.display("selectGroup",{left:left,top:top,contactIds:data.ids});
 			});
 			
+			//user click button delete group
 			$element.delegate(".group .groupDel","click",function(){
 				var $button = $(this);
 				var groupId = $button.closest(".group").attr("data-obj_id");
@@ -62,16 +71,16 @@
 						cancelLabel: "Cancel"
 					});
 
-					dialogComponent.onAnswerOk(function(){
-						for(var i=0;i<contact.groupIds.length;i++){
-							if(contact.groupIds[i] == groupId){
-								snow.dm.remove("groupcontact",{groupId:groupId,contactId:contactId});
-								break;
-							}
+				dialogComponent.onAnswerOk(function(){
+					for(var i=0;i<contact.groupIds.length;i++){
+						if(contact.groupIds[i] == groupId){
+							snow.dm.remove("groupcontact",{groupId:groupId,contactId:contactId});
+							break;
 						}
-						
-						snow.ui.display("contactInfo",data);
-					});
+					}
+					
+					snow.ui.display("contactInfo",data);
+				});
 			});
 			
 			

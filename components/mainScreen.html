@@ -19,16 +19,20 @@
 			snow.ui.display("contact");
 			snow.ui.display("welcome");
 			
+			//user click on button create group
 			$element.find(".btnCreateGroup").click(function(){
 				snow.ui.display("groupForm");
 			});
 			
+			//user click on button create contact
 			$element.find(".btnCreateContact").click(function(){
 				snow.ui.display("contactForm");
 			});
 			
 			var $loginButton = $element.find(".btnLog.btnLogin");
 			var $logoffButton = $element.find(".btnLog.btnLogoff");
+			
+			//user click on button login
 			$loginButton.click(function(){
 				ng.daos.getToken(function(){
 					$logoffButton.show();
@@ -39,6 +43,7 @@
 				});
 			});
 			
+			//user click on button logoff,if visible
 			$logoffButton.click(function(){
 				ng.daos.logOut();
 				$loginButton.show();

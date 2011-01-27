@@ -23,6 +23,8 @@
 		postDisplay:function(){
 			var thisComponent = this;
 			var $element = this.$element;
+			
+			// user click on contact
 			$element.delegate(".contact","click",function(){
 				var $contact = $(this);
 				$element.find(".contact").each(function(){
@@ -34,6 +36,7 @@
 				snow.ui.display("contactInfo",{ids:contactIds});
 			});
 			
+			// user click on checkbox
 			//e.stopPropagation() can not work if use 'delegate'
 			$element.find("input").bind("click",function(e){
 				e.stopPropagation();
@@ -45,6 +48,7 @@
 				snow.ui.display("contactInfo",{ids:contactIds});
 			});
 			
+			// user click on 'all'
 			$element.find("#all").bind("click",function(e){
 				e.preventDefault();
 				$element.find(".contact").each(function(){
@@ -53,6 +57,8 @@
 				var contactIds = thisComponent.getCheckedContactIds();
 				snow.ui.display("contactInfo",{ids:contactIds});
 			});
+			
+			// user click on 'none'
 			$element.find("#none").bind("click",function(e){
 				e.preventDefault();
 				$element.find(".contact").each(function(){
@@ -76,17 +82,23 @@
 			});
 			/*-- /drag contact --*/
 			
-			//Helper functions
+			/*-- Helper Functions --*/
+			
+			//make checkbox check and contact add backgroud color
 			function showCheck($contact){
 				var $checkbox = $contact.find("input");
 				$checkbox.attr("checked",true);
 				$contact.addClass("checked");
 			}
+			
+			//make checkbox uncheck and contact remove backgroud color
 			function disCheck($contact){
 				var $checkbox = $contact.find("input");
 				$checkbox.removeAttr("checked");
 				$contact.removeClass("checked");
 			}
+			
+			//make checkbox check if not checked and contact add backgroud color if not had background color, and vice versa
 			function toggleCheck($contact){
 				var $checkbox = $contact.find("input");
 				if($checkbox.attr("checked")==true){
@@ -95,7 +107,9 @@
 					$contact.removeClass("checked");
 				}
 			}
+			/*-- /Helper Functions --*/
 		},
+		//get checked contact ids
 		getCheckedContactIds:function(){
 			var contactIds = [];
 			this.$element.find(".contact.checked").each(function(){
