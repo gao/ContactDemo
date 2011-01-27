@@ -38,12 +38,18 @@
 							}
 						}
 						if(exist){
+							contact.groupIds = groupIds;
 							a.push(contact);
 						}
 					}
 				}	
 			}else{
-				a = contactStore;
+				for(var i = 0; i<contactStore.length;i++){
+					var contact = contactStore[i];
+					var groupIds = this.getGroups(objectType,contact.id);
+					contact.groupIds = groupIds;
+					a.push(contact);
+				}
 			}
 				
 			return a;
