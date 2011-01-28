@@ -33,11 +33,7 @@ ng.daos.createContact = function(data,callback){
 ng.daos.deleteContact = function(id,callback){
 	var contact = snow.dm.get("contact",id);
 	var editLink = contact.editLink;
-	var _callback = function(){
-		snow.dm.remove("contact",id);
-		callback();
-	}
-	chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink,_callback);
+	chrome.extension.getBackgroundPage().ng.contact.deleteContact(editLink,callback);
 }
 
 ng.daos.updateContact = function(data,callback){

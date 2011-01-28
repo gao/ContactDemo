@@ -117,9 +117,7 @@
 	};
 	function deleteCallback(resp, xhr, callback) {
 		//localStorage.setItem("deleteStatu",xhr.status);
-		if(callback){
-			callback();
-		}
+		ng.contact.fetchContactList(callback);
 	};
 	// ------ /delete contact ------ //
 	
@@ -142,7 +140,7 @@
 	};
 	
 	function getContactCallback(resp, xhr, editLink, data, callback) {
-		localStorage.setItem("getStatu",xhr.status);
+		//localStorage.setItem("getStatu",xhr.status);
 		var xmldoc = xhr.responseXML;
 		xmldoc.getElementsByTagName("title")[0].firstChild.nodeValue = data.name;
 		//xmldoc.getElementsByTagName("gd:phoneNumber")[0].firstChild.nodeValue = data.phone;
@@ -221,7 +219,7 @@
 	};
 	function deleteGroupCallback(resp, xhr, callback) {
 		//localStorage.setItem("deleteStatu",xhr.status);
-		ng.contact.fetchContactList(callback);
+		ng.contact.fetchGroupList(callback);
 	};
 	// ------ /delete group ------ // 
 	
