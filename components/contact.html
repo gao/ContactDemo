@@ -70,15 +70,6 @@
 			
 			/*-- drag contact --*/
 			$element.find(".contact").dragable({
-				helper:function(){
-					var $contact = $(this);
-					$element.find(".contact").each(function(){
-						disCheck($(this));
-					});
-					showCheck($contact);
-					var contactIds = thisComponent.getCheckedContactIds();
-					snow.ui.display("contactInfo",{ids:contactIds});
-				}
 			});
 			/*-- /drag contact --*/
 			
