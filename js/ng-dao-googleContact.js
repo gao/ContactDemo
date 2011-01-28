@@ -12,8 +12,10 @@
 							
 		GoogleContactDao.prototype.get = function(objectType,id){
 			var contact = getContactDataById(id);
-			var groupIds = this.getGroups(objectType,id);
-			contact.groupIds = groupIds;
+			if(id){
+				var groupIds = this.getGroups(objectType,id);
+				contact.groupIds = groupIds;
+			}
 			if (contact){
 				return $.extend({},contact);
 			}else{
