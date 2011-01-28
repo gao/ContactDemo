@@ -52,7 +52,7 @@
 			});
 			
 			/*-- drop contact --*/
-			$element.find(".group").dropable({
+			$element.find(".group:not(.all-group):not(.recent-group)").dropable({
 				accept:".contact",
 				drop: function(e, opt){
 					var $group = $(this);
